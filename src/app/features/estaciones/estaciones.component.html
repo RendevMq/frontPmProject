@@ -1,0 +1,48 @@
+
+<div class="input-section">
+  <h1>Cantidad de Personas esperando</h1>
+
+  <div class="container">
+    <!-- Panel de Inputs -->
+    <div class="input-panel">
+      <div *ngFor="let estacion of estaciones; let i = index">
+        <label *ngIf="i != 4">Estación {{ i + 1 }}:</label>
+        <span *ngIf="i != 4">B</span>
+        <input *ngIf="i != 4" [(ngModel)]="estacion.B" placeholder="" class="input-box" />
+        <span *ngIf="i > 0 && i < 3">EXP1</span>
+        <input *ngIf="i > 0 && i < 3" [(ngModel)]="estacion.EXP1" placeholder="" class="input-box" />
+      </div>
+    </div>
+  
+    <!-- Panel de Indicadores -->
+    <div class="indicator-panel">
+      <div *ngFor="let estacion of estaciones; let i = index" class="indicator-row">
+        <span class="indicator-label" >{{ i + 1 }}</span>
+        <div class="indicator-bar">
+          <!-- Cuadro verde para B -->
+          <div class="indicator-value-container-B">
+            <span class="indicator-label-top">B</span>
+            <div class="indicator-value">
+              {{ i === 4 ? estacion.B : estacion.B || '' }}
+            </div>
+          </div>
+  
+          <!-- Cuadro verde para EXP1, solo en estaciones 2, 3, y 5 -->
+          <div *ngIf="i > 0 && i < 3 || i === 4" class="indicator-value-container-EXP">
+            <span class="indicator-label-top">EXP1</span>
+            <div class="indicator-value">
+              {{ i === 4 ? estacion.EXP1 : estacion.EXP1 || '' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mapa-section">
+  <h1>Mapa de Estaciones y Rutas cubiertas </h1>
+  <!-- <img class="image-estaciones" src="\assets\lima.png" alt=""> -->
+  <app-route-map/>
+</div>

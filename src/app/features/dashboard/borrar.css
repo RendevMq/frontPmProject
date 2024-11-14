@@ -1,0 +1,89 @@
+
+.container{
+    display: grid;
+    grid-template: repeat(8,minmax(150px,1fr)) / repeat(2,minmax(150px,1fr));
+    margin: 0px auto ;
+    gap: 8px;
+    min-height: 100vh;
+    min-width: fit-content;
+    
+    grid-template-areas:
+      "segundo tercero"
+      "sexto sexto"
+      "sexto sexto"
+      "primero cuarto"
+      "primero cuarto"
+      "septimo septimo"
+      "quinto noveno"
+      "octavo noveno"
+  }
+  
+  @media(width>600px){
+    .container{
+      grid-template: repeat(6,minmax(150px,1fr)) / repeat(3,minmax(150px,1fr));
+      grid-template-areas:
+      "primero segundo tercero"
+      "primero sexto sexto"
+      "cuarto sexto sexto"
+      "cuarto quinto noveno"
+      "septimo septimo noveno"
+      "octavo octavo octavo"
+    }
+  }
+  @media(width>1000px){
+    .container{
+      grid-template: repeat(4,minmax(150px,1fr)) / repeat(4,minmax(150px,1fr));
+      grid-template-areas:
+      "primero segundo tercero cuarto"
+      "primero sexto sexto cuarto"
+      "quinto sexto sexto noveno"
+      "septimo septimo octavo noveno"
+    }
+  }
+  
+  
+  .container div {
+    background-color: lightblue;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container div:first-child{
+    grid-area: primero;
+    background-color: #EDD3ED;
+  }
+  .container div:nth-child(2){
+    grid-area: segundo;
+    background-color: #F47378;
+  }
+  .container div:nth-child(3){
+    grid-area: tercero;
+    background-color: #60C5F1;
+  }
+  .container div:nth-child(4){
+    grid-area: cuarto;
+    background-color: #6BD089;
+  }
+  .container div:nth-child(5){
+    grid-area: quinto;
+    background-color: #FDFAD5;
+  }
+  .container div:nth-child(6){
+    grid-area: sexto;
+    background-color: #FDFAD5;
+  }
+  .container div:nth-child(7){
+    grid-area: septimo;
+    background-color: #4D98CD;
+  }
+  .container div:nth-child(8){
+    grid-area: octavo;
+    background-color: #B3B6BA;
+  }
+  .container div:nth-child(9){
+    grid-area: noveno;
+    background-color: #AAAEEB;
+  }

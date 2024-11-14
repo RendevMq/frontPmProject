@@ -1,0 +1,102 @@
+
+.container2 {
+  display: grid;
+  grid-template: repeat(8, minmax(150px, 1fr)) / repeat(2, minmax(50px, 1fr));
+  margin: 0 auto;
+  gap: 16px;
+  margin-bottom: 16px;
+  min-width: fit-content;
+  // width: 100%;
+
+  grid-template-areas:
+    "primero primero"
+    "primero primero"
+    "segundo segundo"
+    "segundo segundo"
+    "tercero tercero"
+    "tercero tercero"
+    "cuarto cuarto"
+    "cuarto cuarto";
+
+  // Media query para pantallas mayores a 700px
+  @media (min-width: 800px) {
+    grid-template: repeat(6, minmax(150px, 1fr)) / repeat(2, minmax(50px, 1fr));
+    grid-template-areas:
+      "primero primero"
+      "primero primero"
+      "segundo tercero"
+      "segundo tercero"
+      "cuarto cuarto"
+      "cuarto cuarto";
+  }
+
+  // Media query para pantallas mayores a 1000px
+  @media (min-width: 1200px) {
+    grid-template: repeat(6, minmax(150px, 1fr)) / repeat(8, minmax(50px, 1fr));
+    grid-template-areas:
+      "primero primero primero primero primero segundo segundo segundo"
+      "primero primero primero primero primero segundo segundo segundo"
+      "primero primero primero primero primero segundo segundo segundo" 
+      "tercero tercero tercero cuarto cuarto cuarto cuarto cuarto"
+      "tercero tercero tercero cuarto cuarto cuarto cuarto cuarto"
+      "tercero tercero tercero cuarto cuarto cuarto cuarto cuarto" ;
+  }
+
+  div {
+    // background-color: lightblue;
+    // border: 1px solid black;
+    border-radius: 10px;
+    // align-self: center;
+    // height: 100%;
+
+    &:first-child {
+      grid-area: primero;
+      // background-color: #EDD3ED;
+      // background-color: white;
+    }
+
+    &:nth-child(2) {
+      grid-area: segundo;
+      // background-color: #F47378;
+    }
+
+    &:nth-child(3) {
+      grid-area: tercero;
+      // background-color: #60C5F1;
+    }
+
+    &:nth-child(4) {
+      grid-area: cuarto;
+      // background-color: #6BD089;
+      // background-color: white;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+//   .container1 div:nth-child(5){
+//     grid-area: quinto;
+//     background-color: #FDFAD5;
+//   }
+//   .container1 div:nth-child(6){
+//     grid-area: sexto;
+//     background-color: #FDFAD5;
+//   }
+//   .container1 div:nth-child(7){
+//     grid-area: septimo;
+//     background-color: #4D98CD;
+//   }
+//   .container1 div:nth-child(8){
+//     grid-area: octavo;
+//     background-color: #B3B6BA;
+//   }
+//   .container1 div:nth-child(9){
+//     grid-area: noveno;
+//     background-color: #AAAEEB;
+//   }

@@ -1,0 +1,65 @@
+
+<div class="map-container">
+  <!-- <h1 class="map-title">Mapa de Estaciones y Rutas cubiertas</h1> -->
+  
+  <div class="content-wrapper">
+    <div class="map-wrapper">
+      <google-map
+        #map
+        [options]="mapOptions"
+        width="100%" height="100%"
+      >
+        <ng-container *ngFor="let marker of currentMarkers; trackBy: trackByPosition">
+          <map-marker
+            #markerRef="mapMarker"
+            [position]="marker.position"
+            [options]="getMarkerOptions(marker)"
+            (mapClick)="openInfoWindow(markerRef, marker)"
+          ></map-marker>
+        </ng-container>
+        <map-polyline
+          [path]="currentPath"
+          [options]="lineOptions"
+        ></map-polyline>
+        <map-info-window>
+          <div class="info-window-content">
+            <h3>{{ selectedMarker?.title }}</h3>
+            <p>{{ selectedMarker?.description }}</p>
+            <ng-container *ngIf="selectedMarker && selectedMarker.imageUrl">
+              <img [src]="selectedMarker.imageUrl" alt="{{ selectedMarker.title }}" style=" height: auto;" />
+            </ng-container>
+
+          </div>
+        </map-info-window>
+      </google-map>
+    </div>
+
+    <!-- <div class="sidebar"> -->
+      <div class="route-selector">
+        <h2>Selección de Ruta</h2>
+        <div class="route-buttons">
+          <button
+            [class.active]="selectedRoute === 'A'"
+            (click)="selectRoute('A')"
+            class="route-button"
+            [@buttonState]="selectedRoute === 'A' ? 'active' : 'inactive'"
+          >
+            Ruta A
+          </button>
+          <button
+            [class.active]="selectedRoute === 'B'"
+            (click)="selectRoute('B')"
+            class="route-button"
+            [@buttonState]="selectedRoute === 'B' ? 'active' : 'inactive'"
+          >
+            Ruta B
+          </button>
+        </div>
+      <!-- </div> -->
+    </div>
+
+    <div class="weather-wraper">
+      <h1>Hola</h1>
+    </div>
+  </div>
+</div>

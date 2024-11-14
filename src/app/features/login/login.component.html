@@ -1,0 +1,110 @@
+<div class="login-background">
+    <div class="login-container">
+      <div class="login-content">
+        <!-- Login Form Section -->
+        <div class="login-form-section">
+          <div class="login-form-container">
+            <div class="logo-container">
+              <img src="/assets/logo_uni.png" alt="Logo" class="logo">
+              <h1>Bienvenido de vuelta !!</h1>
+            </div>
+  
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+              <!-- Social Login Button -->
+              <div class="social-login">
+                <button type="button" class="google-btn">
+                  <img
+                    src="/assets/google-icon-color.png"
+                    alt="Google"
+                    class="google-icon default-icon"
+                  />
+                  <img
+                    src="/assets/google-icon-white.png"
+                    alt="Google"
+                    class="google-icon hover-icon"
+                  />
+                  <span class="google-text">Ingresar con Google</span>
+                </button>
+              </div>
+              
+              
+              
+  
+              <!-- Divider -->
+              <div class="divider">
+                <span>o continuar con email</span>
+              </div>
+  
+              <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-container">
+                  <i class="fas fa-envelope"></i>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    formControlName="email" 
+                    placeholder="name@company.com"
+                    [class.error]="isFieldInvalid('email')"
+                  >
+                </div>
+                <span *ngIf="isFieldInvalid('email')" class="error-message">Por favor ingresar un email válido</span>
+              </div>
+  
+              <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-container">
+                  <i class="fas fa-lock"></i>
+                  <input 
+                    [type]="showPassword ? 'text' : 'password'" 
+                    id="password" 
+                    formControlName="password"
+                    placeholder="Ingresa tu Contraseña"
+                    [class.error]="isFieldInvalid('password')"
+                  >
+                  <button 
+                    type="button" 
+                    class="toggle-password"
+                    (click)="showPassword = !showPassword"
+                  >
+                    <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                  </button>
+                </div>
+                <span *ngIf="isFieldInvalid('password')" class="error-message">La contraseña debe tener al menos 6 caracteres</span>
+              </div>
+  
+              <div class="form-options">
+                <label class="remember-me">
+                  <input type="checkbox" formControlName="rememberMe">
+                  <span>Recordar</span>
+                </label>
+                <a href="/forgot-password" class="forgot-password">Olvide su contraseña?</a>
+              </div>
+  
+              <button type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading">
+                <ng-container *ngIf="isLoading">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  Signing in...
+                </ng-container>
+                <ng-container *ngIf="!isLoading">
+                  Ingresar
+                </ng-container>
+              </button>
+            </form>
+  
+            <div class="social-links">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Image Section -->
+        <div class="image-section">
+          <img src="/assets/login_image.png" alt="Login Image">
+        </div>
+      </div>
+    </div>
+  </div>
+  

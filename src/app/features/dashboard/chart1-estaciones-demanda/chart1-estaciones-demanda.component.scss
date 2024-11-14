@@ -1,0 +1,14 @@
+/* src/app/components/chart1-estaciones-demanda/chart1-estaciones-demanda.component.css */
+canvas {
+    width: 800px;
+    // height: 400px;
+  }
+  
+  :host {
+    display: block;
+    padding: 16px;
+    background-color: #f5f7fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  

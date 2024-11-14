@@ -1,0 +1,53 @@
+// src/app/components/demanda-list/demanda-list.component.scss
+
+// Estilo general para el contenedor de la lista de demandas
+.demanda-list {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+    // Estilo para cada elemento de la lista
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+        // Estilo para los textos en negrita
+        strong {
+          color: #333;
+        }
+  
+        // Estilo para cada línea de detalle
+        & > span {
+          display: block;
+          margin: 0.2rem 0;
+          font-size: 0.9rem;
+          color: #666;
+        }
+  
+        // Estilo para las etiquetas de datos, como clima y evento especial
+        .clima,
+        .evento-especial {
+          color: #007bff; // Color primario para destacar etiquetas
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  
+  // Estilo para el mensaje de datos no encontrados
+  .no-data-message {
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+    font-style: italic;
+  }
+  

@@ -1,0 +1,135 @@
+
+.map-container {
+  // height: 100vh;
+  // width: 100%;
+  // background-color: #1a1a1a;
+  color: white;
+  // display: flex;
+  // flex-direction: column;
+  margin: 10px auto;
+
+  background-color: #676767;
+  padding: 20px;
+  gap: 20px;
+  max-width: 1200px;
+  grid-template: repeat(2, minmax(150px, 1fr)) / repeat(2, minmax(150px, 1fr));
+  // width: 800px;
+  border-radius: 8px;
+}
+
+.map-title {
+  text-align: center;
+  padding: 1rem;
+  margin: 0;
+  font-size: 1.5rem;
+  background-color: #2a2a2a;
+}
+
+.content-wrapper {
+  // display: flex;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+  display: grid;
+  grid-template: repeat(5, minmax(150px, 1fr)) / repeat(7, minmax(150px, 1fr));
+
+  @media (min-width: 900px) {
+    grid-template: repeat(5, minmax(150px, 1fr)) / repeat(7, minmax(150px, 1fr));
+    grid-template-areas:
+      "primero primero primero primero primero segundo segundo"
+      "primero primero primero primero primero tercero tercero"
+      "primero primero primero primero primero tercero tercero"
+      "primero primero primero primero primero tercero tercero"
+      "primero primero primero primero primero tercero tercero";
+  }
+}
+
+.map-wrapper {
+  // flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  grid-area: primero;
+//   height: 100%;
+//   width: 100%;
+
+}
+
+// .google-map {
+//   height: 100%;
+//   width: 100%;
+// }
+
+.route-selector {
+  // width: 300px;
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  grid-area: segundo;
+
+}
+
+.weather-wraper{
+  grid-area: tercero;
+  background-color: #3a3a3a;
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+
+.route-selector h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+}
+
+.route-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.route-button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3a3a3a;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.route-button:hover {
+  background-color: #4a4a4a;
+}
+
+.route-button.active {
+  background-color: #00b4d8;
+  color: #1a1a1a;
+}
+
+
+.info-window-content {
+color: #333;
+font-family: Arial, sans-serif;
+padding: 10px;
+text-align: center;
+
+h3 {
+font-size: 1.2rem;
+margin: 0;
+color: #00b4d8;
+}
+
+p {
+margin: 5px 0;
+font-size: 0.9rem;
+}
+
+img {
+margin-top: 8px;
+border-radius: 8px;
+max-width: 100%;
+max-height: 150px;
+}
+}

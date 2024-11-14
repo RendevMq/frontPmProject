@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+/* Definición de variables globales */
+// @import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Colores */
+$primary-color: #012a5b;              /* Color principal (sidebar) */
+$secondary-color: #8690a3;            /* Color secundario (sombras, bordes) */
+$background-color: #f3f3f3;           /* Color de fondo general */
+$text-color: #000;                    /* Color de texto */
+$hover-bg-color: #fff;                /* Fondo al hacer hover */
+$hover-text-color: #000;              /* Texto al hacer hover */
+$active-bg-color: #fff;               /* Fondo para elementos activos */
+$active-text-color: #000;             /* Texto para elementos activos */
+$logo-bg-color: #fff;                 /* Fondo del logo */
+$logo-text-color: #012a5b;            /* Color de texto del logo */
+
+/* Tamaños */
+$sidenav-width: 16.5625rem;           /* Ancho del sidebar expandido */
+$sidenav-collapsed-width: 5rem;       /* Ancho del sidebar colapsado */
+$navbar-height: 4rem;                 /* Altura del navbar */
+$transition-speed: 0.5s;              /* Velocidad de las transiciones */
+$border-radius: 0.313rem;             /* Radio de bordes redondeados */
+$sidenav-transition-speed: 0.3s; // Ajusta la velocidad a tu preferencia
+
+
+/* Charts */
+$background-color-charts-light : #ffffff5b;
+$background-color-charts-dark : #33333328; 
+
+
+/* Sombras */
+$sidenav-shadow: 0.063rem 0 1.25rem 0 $secondary-color;
+
+/* Tipografía */
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-size-base: 16px;
+
+/* Z-Index */
+$z-index-sidebar: 1000;               /* Z-Index del sidebar */
+
+/* Mixins */
+@mixin transition($properties...) {
+  transition: $properties $transition-speed ease;
+  // transition: $properties $sidenav-transition-speed ease;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: $font-family;
+  margin-bottom: 0px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0; /* Esto también puede ayudar a eliminar el margen izquierdo */
+}
+
+a {
+  /* Otros estilos que quieras aplicar al enlace */
+  text-decoration: none; /* Por ejemplo, para quitar el subrayado */
+}
+
+
+// html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,35 @@
+<!-- src/app/shared/components/navbar/navbar.component.html -->
+<nav
+  class="navbar"
+  [class.navbarExpanded]="sidebarService.isSidebarCollapsed()"
+  [class.dark]="isDarkTheme"
+  [class.light]="!isDarkTheme"
+>
+<div class="left">
+  <button class="hamburger" (click)="toggleSidebar()" aria-label="Alternar Sidebar">
+    <i class="fas fa-bars"></i>
+  </button>
+  <a href="https://www.uni.edu.pe" target="_blank" rel="noopener noreferrer" class="navLink" style="cursor: pointer;">
+    UNIVERSIDAD NACIONAL DE INGENIERÍA
+  </a>
+  <a href="https://fim.uni.edu.pe/" target="_blank" rel="noopener noreferrer" class="navLink" style="cursor: pointer;">
+    FIM
+  </a>
+  
+</div>
+  <div class="right">
+    <!-- <span class="icon" aria-label="Notificaciones">
+      <i class="fas fa-bell"></i>
+    </span>
+    <span class="icon" aria-label="Mensajes">
+      <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon" aria-label="Usuario">
+      <i class="fas fa-user"></i>
+    </span> -->
+    <app-theme-switch/>
+    <!-- <span class="icon" aria-label="Ayuda">
+      <i class="fas fa-question-circle"></i>
+    </span> -->
+  </div>
+</nav>

@@ -1,0 +1,315 @@
+.login-background {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: rgb(31,76,110);
+    background: linear-gradient(90deg, rgba(31,76,110,1) 0%, rgba(17,27,87,1) 50%, rgba(21,49,133,1) 100%);
+    padding: 2rem;
+  }
+  
+  .login-container {
+    background: rgba(255, 255, 255, 0.943);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 1500px;
+    width: 100%;
+  }
+  
+  .login-content {
+    display: flex;
+    height: 800px;
+  }
+  
+  .login-form-section {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .login-form-container {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .logo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+  
+    .logo {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+  }
+  
+  .social-login {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  
+    .google-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff; // Fondo blanco por defecto
+        color: #5f6368; // Color de texto gris por defecto
+        border: 1px solid #dadce0; // Borde gris claro
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem; // Ajuste de ancho
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        width: 100%; // Ocupa todo el ancho del contenedor
+        max-width: 300px; // Ancho máximo para controlar tamaño
+        position: relative;
+      
+        &:hover {
+          background-color: #de5246; // Fondo rojo al hacer hover
+          color: #ffffff; // Texto blanco al hacer hover
+        }
+      
+        .google-icon {
+          width: 20px;
+          height: 20px;
+          margin-right: 0.75rem;
+          transition: opacity 0.3s ease;
+          position: absolute;
+          left: 3.8rem;
+        }
+      
+        .default-icon {
+          opacity: 1; // Icono de color visible por defecto
+        }
+      
+        .hover-icon {
+          opacity: 0; // Icono blanco oculto por defecto
+          filter: invert(1);
+        }
+      
+        &:hover .default-icon {
+          opacity: 0; // Oculta el icono de color en hover
+        }
+      
+        &:hover .hover-icon {
+          opacity: 1; // Muestra el icono blanco en hover
+        }
+      
+        .google-text {
+          margin-left: 2.25rem; // Asegura que el texto esté alineado
+          transition: color 0.3s ease;
+        }
+      }
+      
+      
+      
+      
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+    text-transform: uppercase;
+    font-weight: 500;
+  
+    span {
+      margin: 0 1rem;
+    }
+  
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #e0e0e0;
+      
+    }
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+  }
+  
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  
+    i {
+      position: absolute;
+      left: 1rem;
+      color: #666;
+    }
+  
+    input {
+      width: 100%;
+      padding: 0.75rem 2.5rem 0.75rem 2.5rem; // Ajuste de padding para dejar espacio al icono de candado a la izquierda
+      border: 1px solid #e0e0e0;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+  
+      &:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+  
+      &.error {
+        border-color: #dc2626;
+      }
+    }
+  
+    .toggle-password {
+      position: absolute;
+      right: 3rem;
+      top: 50%; // Alineación vertical centrada
+      transform: translateY(-50%); // Centrado vertical con respecto al input
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 0; // Elimina el padding del botón para mejor ajuste
+      display: flex;
+      align-items: center;
+  
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+  
+  
+  .error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: #666;
+    }
+  
+    .forgot-password {
+      font-size: 0.875rem;
+      color: #667eea;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background-color: #5a67d8;
+    }
+  
+    &:disabled {
+      background-color: #a5b4fc;
+      cursor: not-allowed;
+    }
+  
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #f3f4f6;
+      color: #4b5563;
+      transition: background-color 0.2s, color 0.2s;
+  
+      &:hover {
+        background-color: #667eea;
+        color: white;
+      }
+    }
+  }
+  
+  .image-section {
+    flex: 4;
+    overflow: hidden;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .login-content {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .image-section {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .login-form-container {
+      padding: 1.5rem;
+    }
+  }
+  

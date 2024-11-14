@@ -1,0 +1,124 @@
+<div
+  class="sidebar"
+  [class.collapsed]="sidebarService.isSidebarCollapsed() && !sidebarHovered"
+  [class.visible]="sidebarService.isSidebarVisible()"
+  [class.smallScreen]="sidebarService.isSmallScreen()"
+  [class.dark]="isDarkTheme"
+  [class.light]="!isDarkTheme"
+  (mouseenter)="sidebarHovered = true"
+  (mouseleave)="sidebarHovered = false"
+  appClickOutside
+  (appClickOutside)="onClickedOutside()"
+>
+  <!-- Contenedor del logo -->
+  <div class="logo-container">
+    <div class="logo">
+      <i class="fas fa-home"></i>
+    </div>
+    <div
+      class="logo-text"
+      *ngIf="
+        !sidebarService.isSidebarCollapsed() ||
+        sidebarHovered ||
+        sidebarService.isSmallScreen()
+      "
+    >
+      Metropolitano
+    </div>
+  </div>
+
+  <!-- Sección de perfil -->
+  <div class="profile-section">
+    <img src="assets/perfil2.jpg" alt="Profile Image" class="profile-image" />
+    <div
+      class="profile-info"
+      *ngIf="
+        !sidebarService.isSidebarCollapsed() ||
+        sidebarHovered ||
+        sidebarService.isSmallScreen()
+      "
+    >
+      <h4 class="profile-name">Renato Mallqui</h4>
+      <p class="profile-location">Lima, PE</p>
+    </div>
+  </div>
+
+  <!-- Menú de navegación -->
+  <nav class="sidenav-nav">
+    <ul>
+      <li
+        class="sidenav-nav-item"
+        *ngFor="let item of menuItems"
+        [ngClass]="{
+          selected: selectedOption === item.name,
+          hasSubOptions: item.hasSubOptions,
+          childOption: item.parent,
+          parentExpanded: item.parent
+            ? expandedOptions.includes(item.parent)
+            : true,
+          'parent-selected-alone':
+            evaluatedParentOption === item.name &&
+            selectedParentOption !== item.name,
+          'parent-selected-with-child':
+            selectedParentOption === item.name && selectedOption
+        }"
+        [style.display]="
+          item.parent && !expandedOptions.includes(item.parent)
+            ? 'none'
+            : 'block'
+        "
+      >
+        <a
+          class="sidenav-nav-link"
+          (click)="handleSelect(item)"
+          [routerLink]="item.path || null"
+          [class.expandable]="item.hasSubOptions"
+        >
+          <span class="sidenav-link-icon">
+            <i [class]="item.icon"></i>
+          </span>
+          <span
+            class="sidenav-link-text"
+            *ngIf="
+              !sidebarService.isSidebarCollapsed() ||
+              sidebarHovered ||
+              sidebarService.isSmallScreen()
+            "
+          >
+            {{ item.name }}
+          </span>
+          <span class="expand-icon" *ngIf="item.hasSubOptions">
+            <i
+              [class]="
+                expandedOptions.includes(item.name)
+                  ? 'fas fa-chevron-up'
+                  : 'fas fa-chevron-down'
+              "
+            ></i>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- <img src="../../../../assets/logo_uni.png" alt=""> -->
+
+  <!-- Opción de Log Out -->
+  <div class="logout-section">
+    <a class="logout-link" (click)="onLogout()">
+      <span class="logout-icon">
+        <i class="fas fa-sign-out-alt"></i>
+      </span>
+      <span
+        class="logout-text"
+        *ngIf="
+          !sidebarService.isSidebarCollapsed() ||
+          sidebarHovered ||
+          sidebarService.isSmallScreen()
+        "
+      >
+        Log Out
+      </span>
+    </a>
+  </div>
+</div>

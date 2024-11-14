@@ -1,0 +1,83 @@
+<!-- <section class="container1">
+  <div class="card clock-card">
+    <div class="card-content">
+      <h2>{{ currentTime }}</h2>
+      <p>Hora Actual</p>
+      <i class="fas fa-clock animated-clock"></i>
+    </div>
+  </div>
+  <div class="card estaciones-card">
+    <div class="card-content">
+      <h2>{{ estacionesCount }}</h2>
+      <p>Estaciones</p>
+      <i class="fas fa-map-marker-alt"></i>
+    </div>
+  </div>
+  <div class="card rutas-card">
+    <div class="card-content">
+      <h2>{{ rutasCount }}</h2>
+      <p>Rutas</p>
+      <i class="fas fa-route"></i>
+    </div>
+  </div>
+  <div class="card buses-card">
+    <div class="card-content">
+      <h2>{{ busesCount }}</h2>
+      <p>Buses</p>
+      <i class="fas fa-bus"></i>
+    </div>
+  </div>
+</section> -->
+
+<section class="container1">
+  <div class="metric-card clock-card" [class.dark-theme]="isDarkTheme">
+    <div class="metric-content">
+      <div class="metric-info">
+        <h2 class="metric-value">{{currentTime}}</h2>
+        <p class="metric-label">Hora Actual</p>
+      </div>
+      <div class="clock">
+        <div class="hand hour" [style.transform]="'rotate(' + (hours * 30 + minutes / 2) + 'deg)'"></div>
+        <div class="hand minute" [style.transform]="'rotate(' + (minutes * 6) + 'deg)'"></div>
+        <div class="hand second" [style.transform]="'rotate(' + (seconds * 6) + 'deg)'"></div>
+        <div class="center-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metric-card stations-card" [class.dark-theme]="isDarkTheme">
+    <div class="metric-content">
+      <div class="metric-info">
+        <h2 class="metric-value">{{datos.cantidadEstaciones || 0}}</h2>
+        <p class="metric-label">Estaciones</p>
+      </div>
+      <div class="metric-icon">
+        <i class="fas fa-building"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="metric-card routes-card" [class.dark-theme]="isDarkTheme">
+    <div class="metric-content">
+      <div class="metric-info">
+        <h2 class="metric-value">{{datos.cantidadRutas || 0}}</h2>
+        <p class="metric-label">Rutas</p>
+      </div>
+      <div class="metric-icon">
+        <i class="fas fa-route"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="metric-card buses-card" [class.dark-theme]="isDarkTheme">
+    <div class="metric-content">
+      <div class="metric-info">
+        <h2 class="metric-value">{{datos.cantidadBuses || 0}}</h2>
+        <p class="metric-label">Buses en Ruta</p>
+      </div>
+      <div class="metric-icon">
+        <i class="fas fa-bus"></i>
+      </div>
+    </div>
+  </div>
+</section>

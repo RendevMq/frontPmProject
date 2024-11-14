@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+
+<div
+  class="content"
+  [ngClass]="{
+    expanded: sidebarService.isSidebarCollapsed() || (sidebarService.isSmallScreen() && !sidebarService.isSidebarVisible()),
+    'dark-theme': themeService.isDark(),
+    'light-theme': !themeService.isDark()
+  }"
+>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<!-- 
+<button (click)="toggleTheme()">Toggle Theme</button> -->

@@ -1,0 +1,251 @@
+// .container1 {
+//   display: grid;
+//   grid-template: repeat(4, minmax(150px, 1fr)) / repeat(2, minmax(150px, 1fr));
+//   gap: 16px;
+//   margin: 0 auto;
+//   margin-bottom: 16px;
+//   min-width: fit-content;
+
+//   grid-template-areas:
+//     "primero primero"
+//     "segundo segundo"
+//     "tercero tercero"
+//     "cuarto cuarto";
+
+//   @media (min-width: 700px) {
+//     grid-template: repeat(2, minmax(130px, 1fr)) / repeat(2, minmax(100px, 1fr));
+//     grid-template-areas:
+//       "primero segundo"
+//       "tercero cuarto";
+//   }
+
+//   @media (min-width: 1150px) {
+//     grid-template: repeat(2, minmax(60px, 1fr)) / repeat(4, minmax(100px, 1fr));
+//     grid-template-areas:
+//       "primero segundo tercero cuarto"
+//       "primero segundo tercero cuarto";
+//   }
+
+//   .card {
+//     background-color: lightblue;
+//     border-radius: 10px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     padding: 10px;
+//     color: white;
+//     text-align: center;
+//     font-size: 1.2em;
+//     position: relative;
+
+//     h2 {
+//       margin: 0;
+//       font-size: 2em;
+//     }
+
+//     p {
+//       margin: 0;
+//       font-size: 1em;
+//       opacity: 0.8;
+//     }
+
+//     i {
+//       font-size: 4em;
+//       position: absolute;
+//       opacity: 0.2;
+//       right: 10px;
+//       bottom: 10px;
+//     }
+
+//     &.clock-card {
+//       background-color: #3b82f6;
+//       grid-area: primero;
+//     }
+
+//     &.estaciones-card {
+//       background-color: #10b981;
+//       grid-area: segundo;
+//     }
+
+//     &.rutas-card {
+//       background-color: #f59e0b;
+//       grid-area: tercero;
+//     }
+
+//     &.buses-card {
+//       background-color: #ef4444;
+//       grid-area: cuarto;
+//     }
+
+//     .animated-clock {
+//       animation: rotate 10s linear infinite; // Reloj animado
+//     }
+//   }
+// }
+
+// @keyframes rotate {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+.container1 {
+  display: grid;
+  grid-template: repeat(4, minmax(150px, 1fr)) / repeat(2, minmax(150px, 1fr));
+  margin: 0 auto;
+  gap: 16px;
+  margin-bottom: 16px;
+  min-width: fit-content;
+
+  grid-template-areas:
+    "primero primero"
+    "segundo segundo"
+    "tercero tercero"
+    "cuarto cuarto";
+
+  @media (min-width: 700px) {
+    grid-template: repeat(2, minmax(130px, 1fr)) / repeat(2, minmax(100px, 1fr));
+    grid-template-areas:
+      "primero segundo"
+      "tercero cuarto";
+  }
+
+  @media (min-width: 1200px) {
+    grid-template: repeat(1, minmax(120px, 1fr)) / repeat(4, 1fr);
+    grid-template-areas: "primero segundo tercero cuarto";
+  }
+}
+
+.metric-card {
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  // Estilos para el tema claro
+  &.clock-card {
+    grid-area: primero;
+    background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+  }
+
+  &.stations-card {
+    grid-area: segundo;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  }
+
+  &.routes-card {
+    grid-area: tercero;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  }
+
+  &.buses-card {
+    grid-area: cuarto;
+    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+  }
+
+  // Estilos para el tema oscuro
+  &.dark-theme.clock-card {
+    background: linear-gradient(135deg, #1e3a8a 0%, #6b21a8 100%);
+  }
+
+  &.dark-theme.stations-card {
+    background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+  }
+
+  &.dark-theme.routes-card {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+  }
+
+  &.dark-theme.buses-card {
+    background: linear-gradient(135deg, #9b1c1c 0%, #7f1d1d 100%);
+  }
+}
+
+.metric-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.metric-info {
+  flex: 1;
+}
+
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1;
+}
+
+.metric-label {
+  margin: 8px 0 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.metric-icon {
+  font-size: 3rem;
+  opacity: 0.8;
+  margin-left: 20px;
+  transition: color 0.3s ease;
+}
+
+// Reloj analógico
+.clock {
+  width: 80px;
+  height: 80px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  position: relative;
+  margin-left: 20px;
+  transition: border-color 0.3s ease;
+}
+
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  background: white;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.hour {
+  width: 3px;
+  height: 20px;
+  margin-left: -1.5px;
+}
+
+.minute {
+  width: 2px;
+  height: 25px;
+  margin-left: -1px;
+}
+
+.second {
+  width: 1px;
+  height: 30px;
+  margin-left: -0.5px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: white;
+  border-radius: 50%;
+}

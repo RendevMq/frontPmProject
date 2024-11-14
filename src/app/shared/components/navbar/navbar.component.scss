@@ -1,0 +1,118 @@
+@import '../../../../styles.scss'; // Importa las variables y mixins globales
+
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  margin-left: 20px;
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+
+  i {
+    font-size: 1.2rem;
+    color: var(--icon-color);
+  }
+}
+
+.navbar {
+  height: $navbar-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sidenav-width;
+  // @include transition(left);
+  z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease, left 0.5s ease;
+  // transition: background-color 0.3s ease, color 0.3s ease, left 0.2s ease;
+
+  &.navbarExpanded {
+    left: $sidenav-collapsed-width;
+  }
+
+  &.light {
+    background-color: #d2d2d2fa; // Color de fondo claro
+    color: #333; // Color de texto para tema claro
+
+    .navLink {
+      color: #333;
+    }
+
+    .icon i {
+      color: #333;
+    }
+  }
+
+  &.dark {
+    // background-color: #0c1728fa; // Color de fondo oscuro
+    background-color: #08111efa; // Color de fondo oscuro
+    color: #f0f0f0; // Color de texto para tema oscuro
+
+    .navLink {
+      color: #f0f0f0;
+    }
+
+    .icon i {
+      color: #f0f0f0;
+    }
+  }
+
+  .left,
+  .right {
+    display: flex;
+    align-items: center;
+    a{
+      font-weight: 600;
+    }
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 20px;
+    color: inherit; // Color se ajusta al tema
+  }
+
+  .navLink {
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .icon {
+    font-size: 1.2rem;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    i {
+      font-size: inherit;
+      color: inherit; // Ajuste de color según el tema
+    }
+  }
+
+  // Ajustes responsivos para pantallas pequeñas
+  @media (max-width: 1000px) {
+    left: 0 !important
+  }
+}

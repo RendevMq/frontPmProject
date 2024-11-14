@@ -1,0 +1,51 @@
+<div class="table-container" *ngIf="demandas && demandas.length">
+    <table mat-table [dataSource]="demandas" class="mat-elevation-z8">
+      <!-- Estacion Column -->
+      <ng-container matColumnDef="estacion">
+        <th mat-header-cell *matHeaderCellDef>
+          <i class="fas fa-map-marker-alt"></i> Estación
+        </th>
+        <td mat-cell *matCellDef="let demanda">{{ demanda.estacion }}</td>
+      </ng-container>
+  
+      <!-- Ruta Column -->
+      <ng-container matColumnDef="ruta">
+        <th mat-header-cell *matHeaderCellDef>
+          <i class="fas fa-route"></i> Ruta
+        </th>
+        <td mat-cell *matCellDef="let demanda">{{ demanda.ruta }}</td>
+      </ng-container>
+  
+      <!-- Pasajeros Column -->
+      <ng-container matColumnDef="pasajerosEsperando">
+        <th mat-header-cell *matHeaderCellDef>
+          <i class="fas fa-users"></i> Pasajeros Esperando
+        </th>
+        <td mat-cell *matCellDef="let demanda">{{ demanda.pasajerosEsperando }}</td>
+      </ng-container>
+  
+      <!-- Hora Column -->
+      <ng-container matColumnDef="hora">
+        <th mat-header-cell *matHeaderCellDef>
+          <i class="fas fa-clock"></i> Hora
+        </th>
+        <td mat-cell *matCellDef="let demanda">{{ demanda.hora | date: 'shortTime' }}</td>
+      </ng-container>
+  
+      <!-- Buses Column -->
+      <ng-container matColumnDef="buses">
+        <th mat-header-cell *matHeaderCellDef>
+          <i class="fas fa-bus"></i> Buses Destinados
+        </th>
+        <td mat-cell *matCellDef="let demanda">{{ demanda.buses }}</td>
+      </ng-container>
+  
+      <!-- Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <div *ngIf="!demandas || demandas.length === 0">
+    <p>No hay datos disponibles.</p>
+  </div>
+  

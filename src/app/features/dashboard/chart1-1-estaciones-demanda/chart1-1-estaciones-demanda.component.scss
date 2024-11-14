@@ -1,0 +1,27 @@
+/* src/app/components/chart1-1EstacionesDemanda/chart1-1EstacionesDemanda.component.scss */
+// .chart-container {
+//   background-color: #333; /* color de fondo para tema oscuro*/
+//   // background-color: #fff; /* color de fondo para tema claro*/
+//   border-radius: 8px; 
+//   padding: 10px; 
+//   height: 100%;
+// }
+
+@import '../../../../styles.scss';
+
+.chart-container {
+  border-radius: 8px;
+  padding: 10px;
+  height: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+
+  &.light {
+    background-color: $background-color-charts-light /* color de fondo para tema claro */
+  }
+
+  &.dark {
+    background-color: $background-color-charts-dark  /* color de fondo para tema oscuro */
+  }
+}
+

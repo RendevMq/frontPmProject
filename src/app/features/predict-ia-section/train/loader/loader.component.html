@@ -1,0 +1,16 @@
+<!-- loader.component.html -->
+<div class="loader-container">
+    <div class="loader" [class.completed]="isCompleted">
+      <div class="brain">
+        <div class="left-hemisphere"></div>
+        <div class="right-hemisphere"></div>
+        <div class="neurons"></div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="progress"></div>
+      </div>
+      <div class="status-text">
+        {{ isCompleted ? '¡Entrenamiento Completado! 🎉' : 'Entrenando IA...' }}
+      </div>
+    </div>
+  </div>

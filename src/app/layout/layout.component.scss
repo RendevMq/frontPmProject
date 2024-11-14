@@ -1,0 +1,40 @@
+@import '../../styles.scss'; // Importa las variables y mixins globales
+
+.content {
+  margin-top: $navbar-height;
+  margin-left: $sidenav-width;
+  padding: 20px;
+  // margin-bottom: 0px !important;
+  @include transition(margin-left);
+  // min-height: 100px;
+  // min-height: calc(100vh - $navbar-height);
+  // margin-bottom: 0px;
+  max-height: none;
+  // width: calc(100% - $sidenav-width) ;
+
+  // Estilos para el tema claro
+  &.light-theme {
+    background: linear-gradient(90deg, #f5f7fa, #e4ebf5, #d8e3f2);
+  }
+
+  // Estilos para el tema oscuro
+  &.dark-theme {
+    // background: linear-gradient(90deg, #121B31, #2D4452, #112131);
+    // background: linear-gradient(90deg, #121B31, #2D4452, #112131);
+    // background: linear-gradient(12deg, #000000, #05060a, #172839);
+    background:linear-gradient(8deg, #0c0c0c, #080a0f, #172839);
+    
+  }
+
+  &.expanded {
+    margin-left: $sidenav-collapsed-width;
+    // width: calc(100% - $sidenav-collapsed-width) ;
+  }
+
+  @media (max-width: 1000px) {
+    margin-left: 0;
+    &.expanded {
+      margin-left: 0;
+    }
+  }
+}

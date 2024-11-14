@@ -1,0 +1,46 @@
+<!-- src/app/components/demanda-list/demanda-list.component.html -->
+
+<div class="demanda-list" *ngIf="demandas.length > 0; else noData">
+    <ul>
+      <li *ngFor="let demanda of demandas">
+        <div>
+          <strong>Estación:</strong> {{ demanda.estacionRuta.estacion.nombre }}
+        </div>
+        <div>
+          <strong>Dirección:</strong> {{ demanda.estacionRuta.estacion.direccion }}
+        </div>
+        <div>
+          <strong>Ruta:</strong> {{ demanda.estacionRuta.ruta.nombre }} - 
+          <span class="descripcion">{{ demanda.estacionRuta.ruta.descripcion }}</span>
+        </div>
+        <div>
+          <strong>Hora Inicial:</strong> {{ demanda.estacionRuta.ruta.initialHour | date: 'shortTime' }}
+        </div>
+        <div>
+          <strong>Hora Final:</strong> {{ demanda.estacionRuta.ruta.finalHour | date: 'shortTime' }}
+        </div>
+        <div>
+          <strong>Pasajeros en Ruta:</strong> {{ demanda.estacionRuta.numeroPasajeros }}
+        </div>
+        <div>
+          <strong>Total Pasajeros:</strong> {{ demanda.numeroPasajeros }}
+        </div>
+        <div>
+          <strong>Hora de Registro:</strong> {{ demanda.hora | date: 'shortTime' }}
+        </div>
+        <div class="clima">
+          <strong>Clima:</strong> {{ demanda.clima }}
+        </div>
+        <div class="evento-especial">
+          <strong>Evento Especial:</strong> {{ demanda.eventoEspecial }}
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #noData>
+    <div class="no-data-message">
+      <p>No se encontraron demandas.</p>
+    </div>
+  </ng-template>
+  
