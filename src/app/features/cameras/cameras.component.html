@@ -1,26 +1,26 @@
-<div class="dashboard-container">
-    <h1>Cámaras del Metropolitano</h1>
-    <h2>Computer Vision</h2>
-  
-    <div class="stations-grid">
-      @for (station of stations; track station.name; let i = $index) {
-        <div class="station-card">
-          <h3 [class]="station.colorClass">{{ station.name }}</h3>
-          <div class="video-container">
-            <video [src]="station.videoSrc" autoplay loop muted playsinline></video>
-            <div class="pred-num">Cámara: {{ i + 1 }}</div>
-          </div>
-          <div class="passenger-info">
-            <span>Pasajeros:</span>
-            <span class="label">B</span>
-            @for (number of randomNumbers[i]; track $index) {
-              <span [class]="'number ' + station.colorClass">{{ number }}</span>
-              @if ($index === 0 && randomNumbers[i].length > 1) {
-                <span class="label">Exp1</span>
-              }
-            }
-          </div>
+<div class="dashboard-container" [ngClass]="theme">
+  <h1>Cámaras del Metropolitano</h1>
+  <h2>Computer Vision</h2>
+
+  <div class="stations-grid">
+    @for (station of stations; track station.name; let i = $index) {
+      <div class="station-card">
+        <h3 [class]="station.colorClass">{{ station.name }}</h3>
+        <div class="video-container">
+          <video [src]="station.videoSrc" autoplay loop muted playsinline></video>
+          <div class="pred-num">Cámara: {{ i + 1 }}</div>
         </div>
-      }
-    </div>
+        <div class="passenger-info">
+          <span>Pasajeros:</span>
+          <span class="label">B</span>
+          @for (number of randomNumbers[i]; track $index) {
+            <span [class]="'number ' + station.colorClass">{{ number }}</span>
+            @if ($index === 0 && randomNumbers[i].length > 1) {
+              <span class="label">Exp1</span>
+            }
+          }
+        </div>
+      </div>
+    }
   </div>
+</div>

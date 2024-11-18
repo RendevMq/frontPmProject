@@ -3,7 +3,7 @@
 
   <div class="container" [ngClass]="theme">
     <!-- Panel de Inputs -->
-    <div class="input-panel" [ngClass]="theme">
+    <!-- <div class="input-panel" [ngClass]="theme">
       <div *ngFor="let estacion of estaciones; let i = index">
         <label *ngIf="i != 4">Estación {{ i + 1 }}:</label>
         <span *ngIf="i != 4">B</span>
@@ -27,38 +27,72 @@
           placeholder=""
         />
       </div>
-    </div>
-  
-    <!-- Panel de Indicadores -->
-    <div class="indicator-panel" [ngClass]="theme">
-      <div *ngFor="let estacion of estaciones; let i = index" class="indicator-row">
-        <span class="indicator-label">{{ i + 1 }}</span>
-        <div class="indicator-bar">
-          <!-- Nombre de la estación -->
-          <span class="station-name">{{ estacion.nombre }}</span>
-          
-          <!-- Cuadro verde para B -->
-          <div class="indicator-value-container-B">
-            <span class="indicator-label-top">B</span>
-            <div class="indicator-value">
-              {{ i === 4 ? estacion.B : estacion.B || '' }}
-            </div>
-          </div>
-  
-          <!-- Cuadro verde para EXP1, solo en estaciones 2, 3, y 5 -->
-          <div *ngIf="i > 0 && i < 3 || i === 4" class="indicator-value-container-EXP">
-            <span class="indicator-label-top">EXP1</span>
-            <div class="indicator-value">
-              {{ i === 4 ? estacion.EXP1 : estacion.EXP1 || '' }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div> -->
+ <!-- Input Panel -->
+ <div class="input-panel" [ngClass]="theme">
+  <div *ngFor="let estacion of estaciones(); let i = index">
+    <!-- <label>Estación {{ i + 1 }}: {{ estacion.nombre }}</label> -->
+    <label>Estación {{ i + 1 }}: </label>
+
+    <!-- Input for route B -->
+    <span>B</span>
+    <input
+      [(ngModel)]="estacion.B"
+      (input)="validateInput($event, 'B', estacion, i)"
+      (keypress)="onKeyPress($event)"
+      maxlength="2"
+      type="text"
+      class="input-box"
+      placeholder=""
+    />
+
+    <!-- Input for route EXP1 (only for stations 3 and 4) -->
+    <ng-container *ngIf="i >= 2">
+      <span>EXP1</span>
+      <input
+        [(ngModel)]="estacion.EXP1"
+        (input)="validateInput($event, 'EXP1', estacion, i)"
+        (keypress)="onKeyPress($event)"
+        maxlength="2"
+        type="text"
+        class="input-box"
+        placeholder=""
+      />
+    </ng-container>
   </div>
 </div>
 
+<!-- Indicator Panel -->
+<div class="indicator-panel" [ngClass]="theme">
+  <div *ngFor="let estacion of estaciones(); let i = index" class="indicator-row">
+    <span class="indicator-label">{{ i + 1 }}</span>
+    <div class="indicator-bar">
+      <span class="station-name">{{ estacion.nombre }}</span>
+
+      <!-- Display value for route B -->
+      <div class="indicator-value-container-B">
+        <span class="indicator-label-top">B</span>
+        <div class="indicator-value">
+          {{ estacion.B || '' }}
+        </div>
+      </div>
+
+      <!-- Display value for route EXP1 (only for stations 3 and 4) -->
+      <ng-container *ngIf="i >= 2">
+        <div class="indicator-value-container-EXP">
+          <span class="indicator-label-top">EXP1</span>
+          <div class="indicator-value">
+            {{ estacion.EXP1 || '' }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
 <div class="mapa-section" [ngClass]="theme">
-  <h1>Mapa de Estaciones y Rutas cubiertas</h1>
-  <app-route-map></app-route-map>
+<h1>Mapa de Estaciones y Rutas cubiertas</h1>
+<app-route-map></app-route-map>
 </div>

@@ -1,8 +1,9 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, effect } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import MapaRutasComponent from './mapa-rutas/mapa-rutas.component';
 import { ThemeService } from '../../core/services/theme.service';
+import { EstacionesService } from '../../core/services/estacionesService.service';
 
 type Theme = 'light' | 'dark';
 
@@ -14,12 +15,15 @@ type Theme = 'light' | 'dark';
   styleUrls: ['./estaciones.component.scss'],
 })
 export class EstacionesComponent {
-  estaciones = [
-    { id: 1, B: '', EXP1: '', nombre: 'Teran' },
-    { id: 2, B: '', EXP1: '', nombre: 'Benavides' },
-    { id: 3, B: '', EXP1: '', nombre: 'Javier Prado' },
-    { id: 4, B: '', EXP1: '', nombre: 'Canadá' }
-  ];
+  // estaciones = [
+  //   { id: 1, B: '', EXP1: '', nombre: 'Teran' },
+  //   { id: 2, B: '', EXP1: '', nombre: 'Benavides' },
+  //   { id: 3, B: '', EXP1: '', nombre: 'Javier Prado' },
+  //   { id: 4, B: '', EXP1: '', nombre: 'Canadá' }
+  // ];
+
+  private estacionesService = inject(EstacionesService);
+  estaciones = this.estacionesService.estacionesData; // Mantén la referencia a la señal directamente
 
   theme: 'light' | 'dark';
 
@@ -33,7 +37,7 @@ export class EstacionesComponent {
   }
 
   // Método para validar la entrada
-  validateInput(event: any, field: string, estacion: any) {
+  validateInput(event: any, field: string, estacion: any, index: number) {
     const input = event.target.value;
 
     // Remover cualquier caracter que no sea número
@@ -46,6 +50,9 @@ export class EstacionesComponent {
 
     // Actualizar el valor en el modelo
     estacion[field] = numericValue;
+
+    // Update the shared data in the service
+    this.estacionesService.updateEstacion(index, field, numericValue);
   }
 
   // Método para prevenir entrada de caracteres no numéricos

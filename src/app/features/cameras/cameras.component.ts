@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, effect, inject } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../core/services/theme.service';
 
 interface StationData {
   name: string;
@@ -13,7 +14,7 @@ interface StationData {
 }
 
 @Component({
-  selector: 'app-station-dashboard',
+  selector: 'app-cameras',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cameras.component.html',
@@ -21,6 +22,8 @@ interface StationData {
 })
 export class CamerasComponent implements OnInit, OnDestroy {
   private numberUpdateSubscription?: Subscription;
+  private themeService = inject(ThemeService);
+  theme: 'light' | 'dark';
   
   stations: StationData[] = [
     {
@@ -34,8 +37,7 @@ export class CamerasComponent implements OnInit, OnDestroy {
       videoSrc: 'assets/video2.mkv',
       colorClass: 'blue',
       numbers: [
-        { min: 10, max: 20 },
-        { min: 12, max: 18 }
+        { min: 10, max: 20 }
       ]
     },
     {
@@ -51,7 +53,7 @@ export class CamerasComponent implements OnInit, OnDestroy {
       name: 'Estación Canadá',
       videoSrc: 'assets/video4.mkv',
       colorClass: 'red',
-      numbers: [{ min: 8, max: 15 }]
+      numbers: [{ min: 8, max: 15 },{ min: 12, max: 18 }]
     }
   ];
 
@@ -59,8 +61,15 @@ export class CamerasComponent implements OnInit, OnDestroy {
     station.numbers.map(range => this.getRandomNumber(range.min, range.max))
   );
 
+  constructor() {
+    this.theme = this.themeService.isDark() ? 'dark' : 'light';
+
+    effect(() => {
+      this.theme = this.themeService.isDark() ? 'dark' : 'light';
+    });
+  }
+
   ngOnInit() {
-    // Update numbers every 5 seconds
     this.numberUpdateSubscription = interval(5000).subscribe(() => {
       this.randomNumbers = this.stations.map(station => 
         station.numbers.map(range => this.getRandomNumber(range.min, range.max))

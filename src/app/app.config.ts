@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +24,12 @@ export const appConfig: ApplicationConfig = {
       TableModule, 
       DropdownModule, 
       PaginatorModule
-    )
+    ),
+    provideAnimationsAsync(), // Habilita las animaciones requeridas por Toastr
+    provideToastr({
+      timeOut: 3000, // Configuración global (opcional)
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
   ]
 };

@@ -5,19 +5,21 @@ import { ICronogramaHistorico, Ruta } from '../../../core/models/cronograma.mode
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../../core/services/theme.service';
 import { AiService } from '../../../core/services/ia.service';
-
+import { EstacionesService } from '../../../core/services/estacionesService.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-predict',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule ],
   templateUrl: './predict.component.html',
   styleUrls: ['./predict.component.scss'],
 })
 export class PredictComponent {
+  private toastr = inject(ToastrService); // Inyectar ToastrService
   private apiService = inject(ApiService);
   private themeService = inject(ThemeService);
   private aiService = inject(AiService); // Inyectar AiService
-
+  private estacionesService = inject(EstacionesService); // Inject EstacionesService
   theme: 'light' | 'dark';
 
   // Nuevas propiedades para el modo automático/manual
@@ -42,6 +44,13 @@ export class PredictComponent {
   private autoUpdateInterval: any;
 
   constructor() {
+
+      // Cargar el modo desde localStorage
+  const savedMode = localStorage.getItem('mode');
+  if (savedMode) {
+    this.isAutoMode.set(savedMode === 'auto');
+  }
+
     // Observar cambios en el tema
     this.theme = this.themeService.isDark() ? 'dark' : 'light';
     effect(() => {
@@ -58,7 +67,10 @@ export class PredictComponent {
     }, { allowSignalWrites: true });
 
     // Iniciar actualizaciones automáticas
+      // Iniciar actualizaciones automáticas si el modo es automático
+  if (this.isAutoMode()) {
     this.setupAutoUpdate();
+  }
   }
 
   toggleMode(isAuto: boolean) {
@@ -68,7 +80,11 @@ export class PredictComponent {
     } else {
       this.clearAutoUpdate();
     }
+  
+    // Guardar el modo en localStorage
+    localStorage.setItem('mode', isAuto ? 'auto' : 'manual');
   }
+  
 
   private setupAutoUpdate() {
     if (this.autoUpdateInterval) {
@@ -88,46 +104,138 @@ export class PredictComponent {
     }
   }
 
+  // async updateCronograma() {
+  //   if (this.isAutoMode()) {
+  //     // Lógica para actualización automática
+  //     console.log('Actualización automática en progreso...');
+  //   } else {
+  //     // Obtén la estructura base desde AiService
+  //     const predictData = this.aiService.getBasePredictData();
+
+  //     // Solo los valores de pasajeros que deben ser actualizados
+  //     const pasajerosData = [
+  //       { id: 2, pasajeros_esperando: 7 },
+  //       { id: 5, pasajeros_esperando: 6 },
+  //       { id: 6, pasajeros_esperando: 20 },
+  //       { id: 13, pasajeros_esperando: 10 },
+  //       { id: 20, pasajeros_esperando: 25 },
+  //       { id: 21, pasajeros_esperando: 7 },
+  //     ];
+
+  //     // Actualiza únicamente el campo 'pasajeros_esperando' en la estructura base
+  //     predictData.forEach((item) => {
+  //       const pasajerosItem = pasajerosData.find((p) => p.id === item.id);
+  //       if (pasajerosItem) {
+  //         item.pasajeros_esperando = pasajerosItem.pasajeros_esperando;
+  //       }
+  //     });
+
+  //     // Llama al servicio de predicción con los datos actualizados
+  //     this.aiService.predict(predictData).subscribe(
+  //       (response) => {
+  //         console.log('Predicción exitosa:', response);
+
+  //                 // Llama a los métodos `refresh` del servicio ApiService
+  //       this.refreshAllData();
+  //       },
+  //       (error) => {
+  //         console.error('Error al realizar la predicción:', error);
+  //       }
+  //     );
+  //   }
+  // }
+
+  // async updateCronograma() {
+  //   if (this.isAutoMode()) {
+  //     console.log('Actualización automática en progreso...');
+  //   } else {
+  //     const estacionesData = this.estacionesService.getEstacionesData();
+  //     const predictData = this.aiService.getBasePredictData();
+
+  //     predictData.forEach((item) => {
+  //       const estacion = estacionesData.find(
+  //         (e) => e.nombre.toUpperCase() === item.estacion.toUpperCase()
+  //       );
+
+  //       if (estacion) {
+  //         item.pasajeros_esperando = 0;
+  //         if (item.ruta === 'B' && estacion.B) {
+  //           item.pasajeros_esperando = parseInt(estacion.B, 10) || 0;
+  //         } else if (item.ruta === 'EXP1' && estacion.EXP1) {
+  //           item.pasajeros_esperando = parseInt(estacion.EXP1, 10) || 0;
+  //         }
+  //       }
+  //     });
+
+  //     this.aiService.predict(predictData).subscribe(
+  //       (response) => {
+  //         console.log('Predicción exitosa:', response);
+  //         this.refreshAllData();
+  //       },
+  //       (error) => {
+  //         console.error('Error al realizar la predicción:', error);
+  //       }
+  //     );
+  //   }
+  // }
+
   async updateCronograma() {
     if (this.isAutoMode()) {
-      // Lógica para actualización automática
       console.log('Actualización automática en progreso...');
     } else {
-      // Obtén la estructura base desde AiService
+      const estacionesData = this.estacionesService.getEstacionesData();
       const predictData = this.aiService.getBasePredictData();
-
-      // Solo los valores de pasajeros que deben ser actualizados
-      const pasajerosData = [
-        { id: 2, pasajeros_esperando: 7 },
-        { id: 5, pasajeros_esperando: 6 },
-        { id: 6, pasajeros_esperando: 20 },
-        { id: 13, pasajeros_esperando: 10 },
-        { id: 20, pasajeros_esperando: 25 },
-        { id: 21, pasajeros_esperando: 7 },
-      ];
-
-      // Actualiza únicamente el campo 'pasajeros_esperando' en la estructura base
+  
+      // Validar si algún campo está vacío
+      const invalidInputs = estacionesData.some(
+        (e) => e.B === '' || (e.EXP1 === '' && e.EXP1 !== undefined)
+      );
+  
+      if (invalidInputs) {
+        // Mostrar notificación de error
+        this.toastr.error(
+          'Todos los campos deben estar llenos antes de generar.',
+          'Error'
+        );
+        return; // Salir del método
+      }
+  
+      // Si todos los campos son válidos, mapear predictData
       predictData.forEach((item) => {
-        const pasajerosItem = pasajerosData.find((p) => p.id === item.id);
-        if (pasajerosItem) {
-          item.pasajeros_esperando = pasajerosItem.pasajeros_esperando;
+        const estacion = estacionesData.find(
+          (e) => e.nombre.toUpperCase() === item.estacion.toUpperCase()
+        );
+  
+        if (estacion) {
+          item.pasajeros_esperando = 0;
+          if (item.ruta === 'B' && estacion.B) {
+            item.pasajeros_esperando = parseInt(estacion.B, 10) || 0;
+          } else if (item.ruta === 'EXP1' && estacion.EXP1) {
+            item.pasajeros_esperando = parseInt(estacion.EXP1, 10) || 0;
+          }
         }
       });
-
-      // Llama al servicio de predicción con los datos actualizados
+  
+      // Llamar al servicio de predicción
       this.aiService.predict(predictData).subscribe(
         (response) => {
-          console.log('Predicción exitosa:', response);
-
-                  // Llama a los métodos `refresh` del servicio ApiService
-        this.refreshAllData();
+          // Mostrar notificación de éxito
+          this.toastr.success('La predicción se generó correctamente.', 'Éxito');
+          this.refreshAllData();
         },
         (error) => {
+          // Mostrar notificación de error
+          this.toastr.error(
+            'Ocurrió un error al realizar la predicción.',
+            'Error'
+          );
           console.error('Error al realizar la predicción:', error);
         }
       );
     }
   }
+  
+
 
   private refreshAllData() {
     // Llama a los métodos `refresh` del servicio ApiService en paralelo

@@ -1,111 +1,163 @@
-.dashboard-container {
-    padding: 1rem;
-    background-color: #f5f5f554;
-    min-height: 100vh;
-    border-radius: 20px;
-  
-    h1, h2 {
-      text-align: center;
-      margin: 0;
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-  
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    h2 {
-      font-size: 1.4rem;
-      margin-bottom: 2rem;
-    }
-  }
-  
-  .stations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 1.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  
+// Variables de color
+$color-light-bg: #ffffff8b;
+$color-light-card-bg: #ffffff;
+$color-light-text: #1a1a1a;
+$color-light-shadow: rgba(0, 0, 0, 0.1);
+
+$color-dark-bg: #1a1a1a73;
+$color-dark-card-bg: #2c2c2c;
+$color-dark-text: #ffffff;
+$color-dark-shadow: rgba(255, 255, 255, 0.1);
+
+// Dark theme station colors
+$color-dark-green: #4caf50;
+$color-dark-blue: #2196f3;
+$color-dark-purple: #9c27b0;
+$color-dark-red: #f44336;
+
+@mixin theme-colors($bg-color, $card-bg-color, $text-color, $shadow-color) {
+  background-color: $bg-color;
+  color: $text-color;
+
   .station-card {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
-    h3 {
-      margin: 0 0 1rem;
-      font-size: 1.5rem;
-      text-align: center;
-      font-weight: 500;
-      
-  
+    background-color: $card-bg-color;
+    box-shadow: 0 2px 4px $shadow-color;
+  }
+
+  h1, h2 {
+    color: $text-color;
+  }
+}
+
+.dashboard-container {
+  padding: 1rem;
+  min-height: 100vh;
+  border-radius: 20px;
+
+  &.light {
+    @include theme-colors($color-light-bg, $color-light-card-bg, $color-light-text, $color-light-shadow);
+  }
+
+  &.dark {
+    @include theme-colors($color-dark-bg, $color-dark-card-bg, $color-dark-text, $color-dark-shadow);
+  }
+
+  h1, h2 {
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.stations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.station-card {
+  border-radius: 12px;
+  padding: 1rem;
+
+  h3 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+
+    .light & {
       &.green { color: #28a745; }
       &.blue { color: #007bff; }
       &.purple { color: #6f42c1; }
       &.red { color: #dc3545; }
     }
-  }
-  
-  .video-container {
-    position: relative;
-    margin-bottom: 1rem;
-  
-    video {
-      width: 100%;
-      border-radius: 8px;
-      object-fit: cover;
-      aspect-ratio: 16/9;
-    }
-  
-    .pred-num {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      color: #ffffff;
-      font-size: 1rem;
-      font-weight: 600;
+
+    .dark & {
+      &.green { color: $color-dark-green; }
+      &.blue { color: $color-dark-blue; }
+      &.purple { color: $color-dark-purple; }
+      &.red { color: $color-dark-red; }
     }
   }
-  
-  .passenger-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+}
+
+.video-container {
+  position: relative;
+  margin-bottom: 1rem;
+
+  video {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+  }
+
+  .pred-num {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #ffffff;
     font-size: 1rem;
-    justify-content: center;
     font-weight: 600;
-  
-    .label {
-      font-weight: 500;
-    }
-  
-    .number {
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      color: white;
-      font-weight: 500;
-  
+  }
+}
+
+.passenger-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  justify-content: center;
+  font-weight: 600;
+
+  .label {
+    font-weight: 500;
+  }
+
+  .number {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+
+    .light & {
       &.green { background-color: #28a745; }
       &.blue { background-color: #007bff; }
       &.purple { background-color: #6f42c1; }
       &.red { background-color: #dc3545; }
     }
-  }
-  
-  @media (max-width: 768px) {
-    .dashboard-container {
-      padding: 1rem;
-    }
-  
-    .stations-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .station-card {
-      padding: 0.8rem;
+
+    .dark & {
+      &.green { background-color: $color-dark-green; }
+      &.blue { background-color: $color-dark-blue; }
+      &.purple { background-color: $color-dark-purple; }
+      &.red { background-color: $color-dark-red; }
     }
   }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .stations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .station-card {
+    padding: 0.8rem;
+  }
+}
