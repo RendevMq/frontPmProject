@@ -1,95 +1,92 @@
-<div class="demand-history-container">
-    <h1>Datos Históricos de la Demanda</h1>
-  
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>Estación</th>
-            <th>Ruta</th>
-            <th>Pasajeros Esperando</th>
-            <th>Hora</th>
-            <th>Buses por Salir</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (item of displayData(); track item.estacion + item.ruta + item.hora; let i = $index) {
-            <tr [class]="getRowClass(i)">
-              <td>{{item.estacion}}</td>
-              <td>
-                <span class="route-badge" [class]="getRouteClass(item.ruta)">
-                  {{item.ruta}}
-                </span>
-              </td>
-              <td>
-                <span class="passenger-count" [class]="getPassengerClass(item.pasajerosEsperando)">
-                  {{item.pasajerosEsperando}}
-                </span>
-              </td>
-              <td>{{formatTime(item.hora)}}</td>
-              <td>{{item.buses}}</td>
-            </tr>
-          }
-        </tbody>
-      </table>
-  
-      <div class="pagination-container">
-        <div class="pagination-info">
-            Mostrando {{ (currentPage() - 1) * itemsPerPage() + 1 }} a 
-            {{ getDisplayRangeEnd() }} 
-            de {{ totalItems() }} registros
-        </div>
-        
-  
-        <div class="pagination-controls">
-          <button 
-            class="pagination-button" 
-            [disabled]="currentPage() === 1"
-            (click)="onPageChange(1)">
-            «
-          </button>
-          <button 
-            class="pagination-button" 
-            [disabled]="currentPage() === 1"
-            (click)="onPageChange(currentPage() - 1)">
-            ‹
-          </button>
-  
-          @for (page of paginationRange; track page) {
-            <button 
-              class="pagination-button" 
-              [class.active]="currentPage() === page"
-              (click)="onPageChange(page)">
-              {{page}}
-            </button>
-          }
-  
-          <button 
-            class="pagination-button" 
-            [disabled]="currentPage() === totalPages"
-            (click)="onPageChange(currentPage() + 1)">
-            ›
-          </button>
-          <button 
-            class="pagination-button" 
-            [disabled]="currentPage() === totalPages"
-            (click)="onPageChange(totalPages)">
-            »
-          </button>
-        </div>
-  
-        <div class="items-per-page">
-          <select 
-            [ngModel]="itemsPerPage()" 
-            (ngModelChange)="onItemsPerPageChange($event)">
-            @for (option of pageSizeOptions; track option) {
-              <option [value]="option">{{option}}</option>
-            }
-          </select>
-          <span>registros por página</span>
-        </div>
+<div class="demand-history-container" [ngClass]="theme">
+  <h1>Datos Históricos de la Demanda</h1>
+
+  <div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Estación</th>
+          <th>Ruta</th>
+          <th>Pasajeros Esperando</th>
+          <th>Hora</th>
+          <th>Buses por Salir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of displayData(); let i = index" [class]="getRowClass(i)">
+          <td>{{ item.estacion }}</td>
+          <td>
+            <span class="route-badge" [class]="getRouteClass(item.ruta)">
+              {{ item.ruta }}
+            </span>
+          </td>
+          <td>
+            <span class="passenger-count" [class]="getPassengerClass(item.pasajerosEsperando)">
+              <i [class]="getPassengerIcon(item.pasajerosEsperando)" aria-hidden="true"></i>
+              {{ item.pasajerosEsperando }}
+            </span>
+          </td>
+          <td>{{ formatTime(item.hora) }}</td>
+          <td>{{ item.buses }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Mostrando {{ (currentPage() - 1) * itemsPerPage() + 1 }} a 
+        {{ getDisplayRangeEnd() }} 
+        de {{ totalItems() }} registros
+      </div>
+
+      <div class="pagination-controls">
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === 1"
+          (click)="onPageChange(1)">
+          «
+        </button>
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === 1"
+          (click)="onPageChange(currentPage() - 1)">
+          ‹
+        </button>
+
+        <button 
+          *ngFor="let page of paginationRange" 
+          class="pagination-button" 
+          [class.active]="currentPage() === page"
+          (click)="onPageChange(page)">
+          {{ page }}
+        </button>
+
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === totalPages"
+          (click)="onPageChange(currentPage() + 1)">
+          ›
+        </button>
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === totalPages"
+          (click)="onPageChange(totalPages)">
+          »
+        </button>
+      </div>
+
+      <div class="items-per-page">
+        <select 
+          [ngModel]="itemsPerPage()" 
+          (ngModelChange)="onItemsPerPageChange($event)">
+          <option *ngFor="let option of pageSizeOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+        <span>registros por página</span>
       </div>
     </div>
-
-    
   </div>
+
+  <app-neural-network></app-neural-network>
+</div>

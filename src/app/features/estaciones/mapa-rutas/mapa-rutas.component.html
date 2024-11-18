@@ -1,9 +1,7 @@
-
-<div class="map-container">
-  <!-- <h1 class="map-title">Mapa de Estaciones y Rutas cubiertas</h1> -->
-  
-  <div class="content-wrapper">
-    <div class="map-wrapper">
+<div class="map-container" [ngClass]="theme">
+  <div class="content-wrapper" [ngClass]="theme">
+    <!-- Contenedor del mapa -->
+    <div class="map-wrapper" [ngClass]="theme">
       <google-map
         #map
         [options]="mapOptions"
@@ -22,44 +20,43 @@
           [options]="lineOptions"
         ></map-polyline>
         <map-info-window>
-          <div class="info-window-content">
+          <div class="info-window-content" [ngClass]="theme">
             <h3>{{ selectedMarker?.title }}</h3>
             <p>{{ selectedMarker?.description }}</p>
-            <ng-container *ngIf="selectedMarker && selectedMarker.imageUrl">
-              <img [src]="selectedMarker.imageUrl" alt="{{ selectedMarker.title }}" style=" height: auto;" />
+            <ng-container *ngIf="selectedMarker?.imageUrl">
+              <img [src]="selectedMarker?.imageUrl" alt="{{ selectedMarker?.title }}" />
             </ng-container>
-
           </div>
         </map-info-window>
       </google-map>
     </div>
 
-    <!-- <div class="sidebar"> -->
-      <div class="route-selector">
-        <h2>Selección de Ruta</h2>
-        <div class="route-buttons">
-          <button
-            [class.active]="selectedRoute === 'A'"
-            (click)="selectRoute('A')"
-            class="route-button"
-            [@buttonState]="selectedRoute === 'A' ? 'active' : 'inactive'"
-          >
-            Ruta A
-          </button>
-          <button
-            [class.active]="selectedRoute === 'B'"
-            (click)="selectRoute('B')"
-            class="route-button"
-            [@buttonState]="selectedRoute === 'B' ? 'active' : 'inactive'"
-          >
-            Ruta B
-          </button>
-        </div>
-      <!-- </div> -->
+    <!-- Selector de rutas -->
+    <div class="route-selector" [ngClass]="theme">
+      <h2>Selección de Ruta</h2>
+      <div class="route-buttons">
+        <button
+          [class.active]="selectedRoute === 'A'"
+          (click)="selectRoute('A')"
+          class="route-button"
+          [@buttonState]="selectedRoute === 'A' ? 'active' : 'inactive'"
+        >
+          Ruta A
+        </button>
+        <button
+          [class.active]="selectedRoute === 'B'"
+          (click)="selectRoute('B')"
+          class="route-button"
+          [@buttonState]="selectedRoute === 'B' ? 'active' : 'inactive'"
+        >
+          Ruta B
+        </button>
+      </div>
     </div>
 
-    <div class="weather-wraper">
-      <h1>Hola</h1>
+    <!-- Información adicional o sección futura -->
+    <div class="weather-wrapper" [ngClass]="theme">
+      <app-weatherinfo [selectedRoute]="selectedRoute">`</app-weatherinfo>
     </div>
   </div>
 </div>

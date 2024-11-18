@@ -1,0 +1,566 @@
+// Variables de color para temas
+$color-light-bg: #ffffff8b;
+$color-light-text: #1a1a1a;
+$color-light-secondary-bg: #f5f5f5;
+$color-light-border: #e0e0e0;
+$color-light-button-bg: linear-gradient(90deg, #4a90e2, #7b61ff);
+$color-light-button-hover-bg: linear-gradient(90deg, #357ae8, #5b4cd7);
+$color-light-route-expreso1-bg: #dbeafe;
+$color-light-route-expreso1-text: #1e40af;
+$color-light-route-regular-bg: #bbf7d0;
+$color-light-route-regular-text: #166534;
+$color-light-table-header-bg: #f9fafb;
+$color-light-table-header-text: #374151;
+$color-light-table-row-hover-bg: #f1f5f9;
+$color-light-pagination-button-bg: white;
+$color-light-pagination-button-hover-bg: #f3f4f6;
+$color-light-pagination-button-active-bg: #3b82f6;
+$color-light-pagination-button-active-text: white;
+$color-light-mode-active-bg: #0066FF;
+$color-light-mode-active-text: white;
+$color-light-mode-hover-bg: #e0e0e0;
+$color-light-row-group-a-bg: #f8fafc;
+$color-light-row-group-b-bg: #f0f7ff;
+$color-light-active-instruction-bg: #e0f7fa65; // Nuevo color para el cuadro activo
+
+$color-dark-bg: #1a1a1a73;
+$color-dark-text: #ffffff;
+$color-dark-secondary-bg: #333333;
+$color-dark-border: #444444;
+$color-dark-button-bg: linear-gradient(90deg, #357ae8, #5b4cd7);
+$color-dark-button-hover-bg: linear-gradient(90deg, #1a5bb5, #3a3da8);
+$color-dark-route-expreso1-bg: #3b4b70;
+$color-dark-route-expreso1-text: #cbd5e1;
+$color-dark-route-regular-bg: #223a2b;
+$color-dark-route-regular-text: #a7f3d0;
+$color-dark-table-header-bg: #2a2a2a;
+$color-dark-table-header-text: #ffffff;
+$color-dark-table-row-hover-bg: #2d3748;
+$color-dark-pagination-button-bg: #444444;
+$color-dark-pagination-button-hover-bg: #555555;
+$color-dark-pagination-button-active-bg: #357ae8;
+$color-dark-pagination-button-active-text: #ffffff;
+$color-dark-mode-active-bg: #357ae8;
+$color-dark-mode-active-text: #ffffff;
+$color-dark-mode-hover-bg: #555555;
+$color-dark-row-group-a-bg: #4d56673a;
+$color-dark-row-group-b-bg: #1a202c5e;
+$color-dark-active-instruction-bg: #1f334f51; // Nuevo color para el cuadro activo
+
+@mixin theme-colors(
+  $bg,
+  $text,
+  $secondary-bg,
+  $border,
+  $button-bg,
+  $button-hover-bg,
+  $route-expreso1-bg,
+  $route-expreso1-text,
+  $route-regular-bg,
+  $route-regular-text,
+  $table-header-bg,
+  $table-header-text,
+  $table-row-hover-bg,
+  $pagination-button-bg,
+  $pagination-button-hover-bg,
+  $pagination-button-active-bg,
+  $pagination-button-active-text,
+  $mode-active-bg,
+  $mode-active-text,
+  $mode-hover-bg,
+  $row-group-a-bg,
+  $row-group-b-bg,
+  $active-instruction-bg
+) {
+  background-color: $bg;
+  color: $text;
+
+  .header {
+    h1 {
+      color: $text;
+    }
+
+    .generate-button {
+      background: $button-bg;
+      color: white;
+
+      &:hover {
+        background: $button-hover-bg;
+      }
+    }
+  }
+
+  .mode-selector-container {
+    .mode-selector {
+      background: $secondary-bg;
+      border: 1px solid $border;
+
+      .mode-button {
+        background: transparent;
+        color: $text;
+
+        &.active {
+          background-color: $mode-active-bg;
+          color: $mode-active-text;
+        }
+
+        &:not(.active):hover {
+          background-color: $mode-hover-bg;
+        }
+      }
+    }
+
+    .mode-instructions {
+      h3 {
+        color: $table-header-text;
+      }
+
+      .auto-mode,
+      .manual-mode {
+        background-color: $secondary-bg;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+        color: $text;
+
+        &.active {
+          opacity: 1;
+          background-color: $active-instruction-bg; // Aplicamos el nuevo color
+        }
+
+        ul,
+        ol {
+          li {
+            color: $text;
+          }
+        }
+      }
+    }
+  }
+
+  .table-container {
+    background: $bg;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    margin-top: 2rem;
+
+    table {
+      th {
+        background-color: $table-header-bg;
+        color: $table-header-text;
+      }
+
+      td {
+        color: $text;
+      }
+
+      .row-group-a {
+        background-color: $row-group-a-bg;
+      }
+
+      .row-group-b {
+        background-color: $row-group-b-bg;
+      }
+
+      tr:hover {
+        background-color: $table-row-hover-bg !important;
+      }
+    }
+
+    .route-badge {
+      &.route-expreso1 {
+        background-color: $route-expreso1-bg;
+        color: $route-expreso1-text;
+      }
+
+      &.route-regular {
+        background-color: $route-regular-bg;
+        color: $route-regular-text;
+      }
+    }
+  }
+
+  .pagination-container {
+    border-top: 1px solid $border;
+
+    .pagination-info {
+      color: $text;
+    }
+
+    .pagination-controls {
+      .pagination-button {
+        background-color: $pagination-button-bg;
+        border: 1px solid $border;
+        color: $text;
+
+        &:hover:not(:disabled) {
+          background-color: $pagination-button-hover-bg;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        &.active {
+          background-color: $pagination-button-active-bg;
+          color: $pagination-button-active-text;
+          border-color: $pagination-button-active-bg;
+        }
+      }
+    }
+
+    .items-per-page {
+      select {
+        background-color: $secondary-bg;
+        color: $text;
+        border: 1px solid $border;
+
+        &:focus {
+          outline: none;
+          border-color: $button-bg;
+        }
+      }
+
+      span {
+        color: $text;
+      }
+    }
+  }
+}
+
+// Estilos para el tema claro
+.light {
+  @include theme-colors(
+    $color-light-bg,
+    $color-light-text,
+    $color-light-secondary-bg,
+    $color-light-border,
+    $color-light-button-bg,
+    $color-light-button-hover-bg,
+    $color-light-route-expreso1-bg,
+    $color-light-route-expreso1-text,
+    $color-light-route-regular-bg,
+    $color-light-route-regular-text,
+    $color-light-table-header-bg,
+    $color-light-table-header-text,
+    $color-light-table-row-hover-bg,
+    $color-light-pagination-button-bg,
+    $color-light-pagination-button-hover-bg,
+    $color-light-pagination-button-active-bg,
+    $color-light-pagination-button-active-text,
+    $color-light-mode-active-bg,
+    $color-light-mode-active-text,
+    $color-light-mode-hover-bg,
+    $color-light-row-group-a-bg,
+    $color-light-row-group-b-bg,
+    $color-light-active-instruction-bg // Pasamos el nuevo color
+  );
+}
+
+// Estilos para el tema oscuro
+.dark {
+  @include theme-colors(
+    $color-dark-bg,
+    $color-dark-text,
+    $color-dark-secondary-bg,
+    $color-dark-border,
+    $color-dark-button-bg,
+    $color-dark-button-hover-bg,
+    $color-dark-route-expreso1-bg,
+    $color-dark-route-expreso1-text,
+    $color-dark-route-regular-bg,
+    $color-dark-route-regular-text,
+    $color-dark-table-header-bg,
+    $color-dark-table-header-text,
+    $color-dark-table-row-hover-bg,
+    $color-dark-pagination-button-bg,
+    $color-dark-pagination-button-hover-bg,
+    $color-dark-pagination-button-active-bg,
+    $color-dark-pagination-button-active-text,
+    $color-dark-mode-active-bg,
+    $color-dark-mode-active-text,
+    $color-dark-mode-hover-bg,
+    $color-dark-row-group-a-bg,
+    $color-dark-row-group-b-bg,
+    $color-dark-active-instruction-bg // Pasamos el nuevo color
+  );
+}
+
+// Estilos base
+.demand-history-container {
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  height: 50px;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .generate-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.8rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transition: opacity 0.3s;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .generate-icon {
+      font-size: 1rem;
+    }
+  }
+}
+
+.mode-selector-container {
+  margin-bottom: 2rem;
+
+  .mode-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background: $color-light-secondary-bg;
+    padding: 0.25rem;
+    border-radius: 2rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid $color-light-border;
+
+    .mode-button {
+      flex: none;
+      width: 150px;
+      padding: 1rem 0;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 1.5rem;
+      transition: all 0.2s ease;
+      text-align: center;
+
+      &:first-of-type {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:last-of-type {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  .mode-instructions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 1rem;
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .auto-mode,
+    .manual-mode {
+      padding: 1.5rem;
+      border-radius: 8px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      background-color: $color-light-secondary-bg; // Aseguramos que tenga un color de fondo por defecto
+
+      ul,
+      ol {
+        padding-left: 1.5rem;
+        margin: 0;
+
+        li {
+          margin-bottom: 0.75rem;
+          font-size: 0.9rem;
+        }
+
+        ul {
+          list-style-type: disc;
+          padding-left: 1.5rem;
+          margin-top: 0.5rem;
+
+          li {
+            margin-bottom: 0.25rem;
+          }
+        }
+      }
+
+      &.active {
+        opacity: 1;
+        background-color: $color-light-active-instruction-bg; // Aplicamos el color activo
+      }
+    }
+  }
+}
+
+.table-container {
+  border-radius: 8px;
+  overflow: auto;
+  margin-top: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th,
+  td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    font-size: 0.875rem;
+  }
+
+  tr:hover {
+    background-color: $color-light-table-row-hover-bg !important;
+  }
+}
+
+.route-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-top: 1px solid #eaeaea;
+
+  .pagination-info {
+    font-size: 0.875rem;
+  }
+
+  .pagination-controls {
+    display: flex;
+    gap: 0.25rem;
+
+    .pagination-button {
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .items-per-page {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    select {
+      padding: 0.375rem 2rem 0.375rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        ring: 2px solid #bfdbfe;
+      }
+    }
+
+    span {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .demand-history-container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .generate-button {
+      align-self: flex-end;
+    }
+  }
+
+  .mode-selector-container {
+    .mode-instructions {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .custom-table {
+    th,
+    td {
+      padding: 0.75rem;
+    }
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    .pagination-controls {
+      order: 2;
+    }
+
+    .items-per-page {
+      order: 3;
+    }
+  }
+}

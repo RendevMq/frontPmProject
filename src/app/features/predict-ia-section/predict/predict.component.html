@@ -1,1 +1,136 @@
-<p>predict works!</p>
+<div class="demand-history-container" [ngClass]="theme">
+  <div class="header">
+    <h1>Cronogramas Dinámico generado por la IA</h1>
+    <button
+      class="generate-button"
+      (click)="updateCronograma()"
+      [disabled]="isAutoMode()"
+    >
+      <i class="fas fa-magic generate-icon"></i>
+      Generar Cronograma
+    </button>
+  </div>
+
+  <div class="mode-selector-container">
+    <div class="mode-selector">
+      <button
+        class="mode-button"
+        [class.active]="isAutoMode()"
+        (click)="toggleMode(true)"
+      >
+        Automático
+      </button>
+      <button
+        class="mode-button"
+        [class.active]="!isAutoMode()"
+        (click)="toggleMode(false)"
+      >
+        Manual
+      </button>
+    </div>
+
+    <div class="mode-instructions">
+      <div class="auto-mode" [class.active]="isAutoMode()">
+        <h3>Modo Automático</h3>
+        <ul>
+          <li>El sistema envía una petición cada 20 minutos automáticamente.</li>
+          <li>Los valores de pasajeros se calculan usando datos históricos específicos de cada estación.</li>
+          <li>El cronograma dinámico se genera de forma automática y actualizada.</li>
+        </ul>
+      </div>
+
+      <div class="manual-mode" [class.active]="!isAutoMode()">
+        <h3>Modo Manual</h3>
+        <ol>
+          <li>Introduzca manualmente los valores de pasajeros para cada estación:
+            <ul>
+              <li>Estación Terán</li>
+              <li>Estación Benavides</li>
+              <li>Estación Javier Prado</li>
+              <li>Estación Canadá</li>
+            </ul>
+          </li>
+          <li>Una vez ingresados los valores, presione el botón "Generar" para crear el cronograma dinámico.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="custom-table" [ngClass]="theme">
+      <thead>
+        <tr>
+          <th>Código del Bus</th>
+          <th>Estación</th>
+          <th>Ruta Destino</th>
+          <th>Hora Asignada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of displayData()" [ngClass]="getRowClass(item.codigoBus)">
+          <td>{{ item.codigoBus }}</td>
+          <td>{{ item.estacion }}</td>
+          <td>
+            <span class="route-badge" [ngClass]="getRouteClass(item.ruta)">
+              {{ item.ruta }}
+            </span>
+          </td>
+          <td>{{ formatTime(item.horaSalida) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Mostrando {{ (currentPage() - 1) * itemsPerPage() + 1 }} a 
+        {{ currentPage() * itemsPerPage() > totalItems() ? totalItems() : currentPage() * itemsPerPage() }} 
+        de {{ totalItems() }} registros
+      </div>
+
+      <div class="pagination-controls">
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === 1"
+          (click)="onPageChange(1)">
+          «
+        </button>
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === 1"
+          (click)="onPageChange(currentPage() - 1)">
+          ‹
+        </button>
+
+        <button 
+          *ngFor="let page of paginationRange" 
+          class="pagination-button" 
+          [class.active]="currentPage() === page"
+          (click)="onPageChange(page)">
+          {{ page }}
+        </button>
+
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === totalPages"
+          (click)="onPageChange(currentPage() + 1)">
+          ›
+        </button>
+        <button 
+          class="pagination-button" 
+          [disabled]="currentPage() === totalPages"
+          (click)="onPageChange(totalPages)">
+          »
+        </button>
+      </div>
+
+      <div class="items-per-page">
+        <select 
+          [ngModel]="itemsPerPage()" 
+          (ngModelChange)="onItemsPerPageChange($event)">
+          <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
+        </select>
+        <span>registros por página</span>
+      </div>
+    </div>
+  </div>
+</div>

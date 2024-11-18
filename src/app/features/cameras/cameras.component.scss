@@ -1,0 +1,111 @@
+.dashboard-container {
+    padding: 1rem;
+    background-color: #f5f5f554;
+    min-height: 100vh;
+    border-radius: 20px;
+  
+    h1, h2 {
+      text-align: center;
+      margin: 0;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+  }
+  
+  .stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .station-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+    h3 {
+      margin: 0 0 1rem;
+      font-size: 1.5rem;
+      text-align: center;
+      font-weight: 500;
+      
+  
+      &.green { color: #28a745; }
+      &.blue { color: #007bff; }
+      &.purple { color: #6f42c1; }
+      &.red { color: #dc3545; }
+    }
+  }
+  
+  .video-container {
+    position: relative;
+    margin-bottom: 1rem;
+  
+    video {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      aspect-ratio: 16/9;
+    }
+  
+    .pred-num {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+  
+  .passenger-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    justify-content: center;
+    font-weight: 600;
+  
+    .label {
+      font-weight: 500;
+    }
+  
+    .number {
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: white;
+      font-weight: 500;
+  
+      &.green { background-color: #28a745; }
+      &.blue { background-color: #007bff; }
+      &.purple { background-color: #6f42c1; }
+      &.red { background-color: #dc3545; }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 1rem;
+    }
+  
+    .stations-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .station-card {
+      padding: 0.8rem;
+    }
+  }

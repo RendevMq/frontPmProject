@@ -1,59 +1,58 @@
-<!-- bus-status.component.html -->
-<div class="bus-status-container">
-    <div class="status-header">
-      <h1>Estado de la Flota de Buses</h1>
-      <button class="refresh-btn" (click)="refreshData()">
-        <i class="fas fa-sync-alt"></i>
-      </button>
+<div class="bus-status-container" [ngClass]="theme">
+  <div class="status-header">
+    <h1>Estado de la Flota de Buses</h1>
+    <button class="refresh-btn" (click)="refreshData()">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+  </div>
+
+  <div class="divImagen">
+    <img src="/assets/bus_info2.jpg" alt="Información de Buses">
+  </div>
+
+  <div class="status-cards">
+    <!-- Total Buses Card -->
+    <div class="status-card total" [ngClass]="theme">
+      <div class="card-icon">
+        <i class="fas fa-bus"></i>
+      </div>
+      <div class="card-content">
+        <h3>Total de Buses</h3>
+        <p class="count">{{ totalBuses() }}</p>
+      </div>
     </div>
 
-    <div class="divImagen">
-        <img src="/assets/bus_info2.jpg" alt="">
+    <!-- Available Buses Card -->
+    <div class="status-card available" [ngClass]="theme">
+      <div class="card-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="card-content">
+        <h3>Disponibles</h3>
+        <p class="count">{{ availableBuses() }}</p>
+      </div>
     </div>
-  
-    <div class="status-cards">
-      <!-- Total Buses Card -->
-      <div class="status-card total">
-        <div class="card-icon">
-          <i class="fas fa-bus"></i>
-        </div>
-        <div class="card-content">
-          <h3>Total de Buses</h3>
-          <p class="count">{{totalBuses()}}</p>
-        </div>
+
+    <!-- In Route Buses Card -->
+    <div class="status-card in-route" [ngClass]="theme">
+      <div class="card-icon">
+        <i class="fas fa-route"></i>
       </div>
-  
-      <!-- Available Buses Card -->
-      <div class="status-card available">
-        <div class="card-icon">
-          <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="card-content">
-          <h3>Disponibles</h3>
-          <p class="count">{{availableBuses()}}</p>
-        </div>
+      <div class="card-content">
+        <h3>En Ruta</h3>
+        <p class="count">{{ inRouteBuses() }}</p>
       </div>
-  
-      <!-- In Route Buses Card -->
-      <div class="status-card in-route">
-        <div class="card-icon">
-          <i class="fas fa-route"></i>
-        </div>
-        <div class="card-content">
-          <h3>En Ruta</h3>
-          <p class="count">{{inRouteBuses()}}</p>
-        </div>
+    </div>
+
+    <!-- Maintenance Buses Card -->
+    <div class="status-card maintenance" [ngClass]="theme">
+      <div class="card-icon">
+        <i class="fas fa-tools"></i>
       </div>
-  
-      <!-- Maintenance Buses Card -->
-      <div class="status-card maintenance">
-        <div class="card-icon">
-          <i class="fas fa-tools"></i>
-        </div>
-        <div class="card-content">
-          <h3>En Mantenimiento</h3>
-          <p class="count">{{maintenanceBuses()}}</p>
-        </div>
+      <div class="card-content">
+        <h3>En Mantenimiento</h3>
+        <p class="count">{{ maintenanceBuses() }}</p>
       </div>
     </div>
   </div>
+</div>

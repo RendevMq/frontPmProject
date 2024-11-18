@@ -1,129 +1,264 @@
-.loader-container {
-    width: 100vw;
-    height: 200px;
+:host {
+  display: block;
+}
+
+.neural-network-container {
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  border-radius: 20px;
+
+  &.light {
+    background-color: #ffffff; // Fondo claro
+    color: #333333;
+
+    .progress-bar-container {
+      background-color: #e0e0e0;
+    }
+
+    .progress-bar {
+      background-color: #4f46e5;
+    }
+
+    .start-button {
+      background-color: #4f46e5;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #4338ca;
+      }
+    }
+
+    .stop-button {
+      background-color: #dc2626;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #b91c1c;
+      }
+    }
+  }
+
+  &.dark {
+    background-color: #171b244c; // Fondo oscuro
+    color: #ffffff;
+
+    .progress-bar-container {
+      background-color: #374151;
+    }
+
+    .progress-bar {
+      background-color: #4f46e5;
+    }
+
+    .start-button {
+      background-color: #4f46e5;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #4338ca;
+      }
+    }
+
+    .stop-button {
+      background-color: #dc2626;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #b91c1c;
+      }
+    }
+  }
+
+  .visualization-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  .loader {
-    width: 80%;
-    max-width: 600px;
-    text-align: center;
-    transition: all 0.5s ease;
-    
-    &.completed {
-      transform: scale(0.8) translateY(-20px);
-      
-      .brain {
-        animation: celebrate 1s ease infinite;
-      }
-      
-      .progress-bar {
-        background: #4CAF50;
-      }
-    }
-  }
-  
-  .brain {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    position: relative;
-    
-    .left-hemisphere, .right-hemisphere {
-      position: absolute;
-      width: 40px;
-      height: 60px;
-      background: #ff6b6b;
-      border-radius: 40px 40px 0 0;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        width: 15px;
-        height: 15px;
-        background: #ff6b6b;
-        border-radius: 50%;
-      }
-    }
-    
-    .left-hemisphere {
-      left: 10px;
-      animation: pulse 2s ease infinite;
-    }
-    
-    .right-hemisphere {
-      right: 10px;
-      animation: pulse 2s ease infinite 0.5s;
-    }
-    
-    .neurons {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      
-      &::before, &::after {
-        content: '';
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: #fff;
-        border-radius: 50%;
-        animation: neuron 1.5s ease infinite;
-      }
-      
-      &::before {
-        left: 0;
-      }
-      
-      &::after {
-        right: 0;
-      }
-    }
-  }
-  
-  .progress-bar {
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center;     /* Centra el contenido verticalmente si es necesario */
     width: 100%;
-    height: 10px;
-    background: #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    margin: 20px 0;
-    
-    .progress {
-      height: 100%;
-      background: linear-gradient(90deg, #4CAF50, #8BC34A);
-      transition: width 0.3s ease;
-    }
+    height: 400px;
+    position: relative;
+    margin: 0 auto;          /* Centra el contenedor dentro de su padre */
   }
-  
-  .status-text {
-    font-size: 1.2em;
-    color: #333;
-    margin-top: 10px;
+
+  .visualization-container svg {
+    max-width: 100%;
+    height: auto;
+    margin-right: 75px;
   }
-  
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+}
+
+/* Animación de pulsación para las neuronas */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
   }
-  
-  @keyframes neuron {
-    0% { transform: scale(1) translate(0, 0); opacity: 0; }
-    50% { transform: scale(1.5) translate(10px, -10px); opacity: 1; }
-    100% { transform: scale(1) translate(20px, -20px); opacity: 0; }
+  50% {
+    opacity: 0.5;
   }
-  
-  @keyframes celebrate {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
-    100% { transform: rotate(0deg); }
+}
+
+/* Transición de colores para botones y elementos interactivos */
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Cambio de fondo al completar el entrenamiento */
+.training-complete {
+  animation: backgroundChange 1s ease-in-out forwards;
+}
+
+@keyframes backgroundChange {
+  0% {
+    // background-color: #111827; // Color inicial (oscuro)
   }
+  100% {
+    background-color: #eafffa7a; // Color verde suave al completar
+  }
+}
+
+/* Estilos para las conexiones durante el entrenamiento */
+.connection-path {
+  filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.7));
+}
+
+/* Barra de progreso */
+.progress-bar-container {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: inherit; // Se adapta al tema actual
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Texto de estado */
+.status-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: inherit; // Se adapta al tema actual
+}
+
+/* Canvas para confeti */
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Utilidades y estilos generales */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Botones */
+.start-button,
+.stop-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  .w-6 {
+    width: 1.5rem;
+  }
+
+  .h-6 {
+    height: 1.5rem;
+  }
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+  .neural-network-container {
+    padding: 1rem;
+  }
+
+  .start-button,
+  .stop-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .visualization-container {
+    height: auto;
+  }
+
+  .visualization-container svg {
+    width: 100%;
+    height: auto;
+  }
+}

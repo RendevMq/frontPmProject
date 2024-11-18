@@ -1,14 +1,14 @@
 export interface ICronogramaHistorico {
-    codigoBus:  string;
-    ruta:       Ruta;
     estacion:   Estacion;
     horaSalida: Date;
+    ruta:       Ruta;
+    codigoBus:  string;
 }
 
 export enum Estacion {
-    Benavides = "BENAVIDES",
+    Benavides = "Benavides",
     Canada = "Canada",
-    JavierPrado = "JAVIER PRADO",
+    JavierPrado = "Javier Prado",
     Teran = "Teran",
 }
 
@@ -16,3 +16,4 @@ export enum Ruta {
     Expreso1 = "Expreso1",
     Regular = "Regular",
 }
+

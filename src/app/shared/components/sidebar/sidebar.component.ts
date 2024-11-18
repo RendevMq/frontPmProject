@@ -37,7 +37,7 @@ menuItems = [
   { icon: 'fas fa-chart-line', name: 'Predicción IA', path: null, hasSubOptions: true },
   { icon: 'far fa-circle', name: 'Entrenenar Modelo', path: '/ia/train', parent: 'Predicción IA' },
   { icon: 'far fa-circle', name: 'Cronograma', path: '/ia/predict', parent: 'Predicción IA' },
-  { icon: 'fas fa-tachometer-alt', name: 'Análisis Demanda', path: '/analisisDemanda' },
+  { icon: 'fas fa-video', name: 'Panel Cámaras', path: '/cameras' },
 ];
 
   /*menuItems = [

@@ -1,24 +1,42 @@
-
-<div class="input-section">
+<div class="input-section" [ngClass]="theme">
   <h1>Cantidad de Personas esperando</h1>
 
-  <div class="container">
+  <div class="container" [ngClass]="theme">
     <!-- Panel de Inputs -->
-    <div class="input-panel">
+    <div class="input-panel" [ngClass]="theme">
       <div *ngFor="let estacion of estaciones; let i = index">
         <label *ngIf="i != 4">Estación {{ i + 1 }}:</label>
         <span *ngIf="i != 4">B</span>
-        <input *ngIf="i != 4" [(ngModel)]="estacion.B" placeholder="" class="input-box" />
+        <input *ngIf="i != 4" 
+          [(ngModel)]="estacion.B" 
+          (input)="validateInput($event, 'B', estacion)"
+          (keypress)="onKeyPress($event)"
+          maxlength="2"
+          type="text"
+          class="input-box"
+          placeholder=""
+        />
         <span *ngIf="i > 0 && i < 3">EXP1</span>
-        <input *ngIf="i > 0 && i < 3" [(ngModel)]="estacion.EXP1" placeholder="" class="input-box" />
+        <input *ngIf="i > 0 && i < 3" 
+          [(ngModel)]="estacion.EXP1" 
+          (input)="validateInput($event, 'EXP1', estacion)"
+          (keypress)="onKeyPress($event)"
+          maxlength="2"
+          type="text"
+          class="input-box"
+          placeholder=""
+        />
       </div>
     </div>
   
     <!-- Panel de Indicadores -->
-    <div class="indicator-panel">
+    <div class="indicator-panel" [ngClass]="theme">
       <div *ngFor="let estacion of estaciones; let i = index" class="indicator-row">
-        <span class="indicator-label" >{{ i + 1 }}</span>
+        <span class="indicator-label">{{ i + 1 }}</span>
         <div class="indicator-bar">
+          <!-- Nombre de la estación -->
+          <span class="station-name">{{ estacion.nombre }}</span>
+          
           <!-- Cuadro verde para B -->
           <div class="indicator-value-container-B">
             <span class="indicator-label-top">B</span>
@@ -38,11 +56,9 @@
       </div>
     </div>
   </div>
-
 </div>
 
-<div class="mapa-section">
-  <h1>Mapa de Estaciones y Rutas cubiertas </h1>
-  <!-- <img class="image-estaciones" src="\assets\lima.png" alt=""> -->
-  <app-route-map/>
+<div class="mapa-section" [ngClass]="theme">
+  <h1>Mapa de Estaciones y Rutas cubiertas</h1>
+  <app-route-map></app-route-map>
 </div>

@@ -5,10 +5,10 @@ import { LoginComponent } from './features/login/login.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { EstacionesComponent } from './features/estaciones/estaciones.component';
 import { BusesComponent } from './features/buses/buses.component';
-import { AnalisisDemandaComponent } from './features/analisis-demanda/analisis-demanda.component';
 import { PredictComponent } from './features/predict-ia-section/predict/predict.component';
 import { TrainComponent } from './features/predict-ia-section/train/train.component';
 import { authGuard } from './core/guard/auth.guard';
+import { CamerasComponent } from './features/cameras/cameras.component';
 
 export const appRoutes: Routes = [
   {
@@ -47,9 +47,9 @@ export const appRoutes: Routes = [
         title: 'Predict - IA',
       },
       {
-        path: 'analisisDemanda',
-        component: AnalisisDemandaComponent,
-        title: 'Análisis Demanda',
+        path: 'cameras',
+        component: CamerasComponent,
+        title: 'Cámaras Metropolitano',
       },
       {
         path: '',

@@ -3,60 +3,50 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { ApiService } from '../../../core/services/api.service';
 import { IEstacionesRutaDemanda, Ruta } from '../../../core/models/historico.model';
 import { FormsModule } from '@angular/forms';
-import { LoaderComponent } from "./loader/loader.component";
-
-
+import { LoaderComponent } from './loader/loader.component';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-train',
   standalone: true,
   imports: [CommonModule, FormsModule, LoaderComponent],
   templateUrl: './train.component.html',
-  styleUrls: ['./train.component.scss']
+  styleUrls: ['./train.component.scss'],
 })
 export class TrainComponent {
   private apiService = inject(ApiService);
-  tuVariableDeProgreso = 5;
-  
-  // Pagination signals
+  private themeService = inject(ThemeService);
+
+  tuProgresoDeEntrenamiento = 5;
   currentPage = signal(1);
   itemsPerPage = signal(6);
   totalItems = signal(0);
-  
-  // Data signals
   allData = signal<IEstacionesRutaDemanda[]>([]);
   displayData = signal<IEstacionesRutaDemanda[]>([]);
+  theme = this.themeService.isDark() ? 'dark' : 'light';
 
-  // Available page size options
-  pageSizeOptions = [ 6,12, 18, 24];
+  pageSizeOptions = [6, 12, 18, 24];
 
   constructor() {
+    // Efecto para actualizar los datos
     effect(() => {
       const data = this.apiService.estacionesRutaDemandaSignal();
       this.allData.set(data);
       this.totalItems.set(data.length);
       this.updateDisplayData();
-    }, { allowSignalWrites: true }); // Habilita la escritura de señales dentro del efecto
-}
+    }, { allowSignalWrites: true });
 
+    // Efecto para detectar cambios en el tema
+    effect(() => {
+      this.theme = this.themeService.isDark() ? 'dark' : 'light';
+    });
+  }
 
-  // Pagination methods
   updateDisplayData() {
-    // Convertir a número explícitamente para evitar concatenación de cadenas
     const start = (Number(this.currentPage()) - 1) * Number(this.itemsPerPage());
     const end = start + Number(this.itemsPerPage());
-    
-    console.log(`Mostrando elementos de índice ${start} a ${end} en la página ${this.currentPage()}`);
-    
-    // Limitar los datos a los elementos de la página actual
-    const paginatedData = this.allData().slice(start, end);
-    console.log("Datos paginados:", paginatedData);
-    
-    this.displayData.set(paginatedData);
-}
-
-
-
+    this.displayData.set(this.allData().slice(start, end));
+  }
 
   onPageChange(page: number) {
     this.currentPage.set(page);
@@ -65,7 +55,7 @@ export class TrainComponent {
 
   onItemsPerPageChange(items: number) {
     this.itemsPerPage.set(items);
-    this.currentPage.set(1); // Reset to first page
+    this.currentPage.set(1);
     this.updateDisplayData();
   }
 
@@ -77,7 +67,7 @@ export class TrainComponent {
     const range = [];
     const start = Math.max(1, this.currentPage() - 2);
     const end = Math.min(this.totalPages, start + 4);
-    
+
     for (let i = start; i <= end; i++) {
       range.push(i);
     }
@@ -88,22 +78,21 @@ export class TrainComponent {
     return new Date(date).toLocaleTimeString('es-ES', {
       hour: '2-digit',
       minute: '2-digit',
-      second: '2-digit', // añade los segundos
-      hour12: false // formato de 24 horas
+      second: '2-digit',
+      hour12: false,
     });
   }
 
-    // Helper method to get route class
-    getRouteClass(ruta: Ruta): string {
-      switch (ruta) {
-        case Ruta.B:
-          return 'route-regular';
-        case Ruta.Exp1:
-          return 'route-express';
-        default:
-          return 'route-regular';
-      }
+  getRouteClass(ruta: Ruta): string {
+    switch (ruta) {
+      case Ruta.B:
+        return 'route-regular';
+      case Ruta.Exp1:
+        return 'route-express';
+      default:
+        return 'route-regular';
     }
+  }
 
   getPassengerClass(count: number): string {
     if (count <= 20) return 'passengers-low';
@@ -111,14 +100,20 @@ export class TrainComponent {
     return 'passengers-high';
   }
 
-  getRowClass(index: number): string {
-    const groupIndex = Math.floor((this.itemsPerPage() * (this.currentPage() - 1) + index) / 6);
-    return groupIndex % 2 === 0 ? 'row-group-1' : 'row-group-2';
+  getPassengerIcon(count: number): string {
+    if (count <= 20) return 'fas fa-user';
+    if (count <= 50) return 'fas fa-users';
+    return 'fas fa-user-friends';
   }
 
-// TrainComponent.ts
-getDisplayRangeEnd(): number {
-  return Math.min(this.currentPage() * this.itemsPerPage(), this.totalItems());
+  getRowClass(index: number): string {
+    const groupIndex = Math.floor(index / 6) % 2;
+    return groupIndex === 0 ? 'row-group-a' : 'row-group-b';
+  }
+  
+
+  getDisplayRangeEnd(): number {
+    return Math.min(this.currentPage() * this.itemsPerPage(), this.totalItems());
+  }
 }
 
-}

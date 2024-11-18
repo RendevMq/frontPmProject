@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +6,12 @@ import { Injectable, signal } from '@angular/core';
 export class ThemeService {
   private readonly THEME_KEY = 'selected-theme';
   private isDarkTheme = signal<boolean>(this.getInitialTheme());
+
+
+  // Exponer la señal
+  getIsDarkThemeSignal(): Signal<boolean> {
+    return this.isDarkTheme;
+  }
 
   constructor() {
     // Aplicar el tema inicial

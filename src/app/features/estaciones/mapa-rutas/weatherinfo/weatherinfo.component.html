@@ -1,0 +1,111 @@
+<div class="weather-container" [ngClass]="theme()">
+    <!-- Estado de Carga -->
+    <div *ngIf="isLoading()" class="loading-state">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Cargando información meteorológica...</p>
+    </div>
+  
+    <!-- Estado de Error -->
+    <div *ngIf="error()" class="error-state">
+      <i class="fas fa-exclamation-circle"></i>
+      <p>{{ error() }}</p>
+    </div>
+  
+    <!-- Contenido del Clima -->
+    <div *ngIf="!isLoading() && !error()" class="weather-content">
+      <!-- Tarjeta de Clima Detallada -->
+      <!-- <div class="weather-card detailed" *ngIf="weatherData()[selectedDetailIndex()]"> -->
+        <div class="weather-card detailed" *ngIf="weatherWithTitles()[selectedDetailIndex()]">
+        <!-- <div class="weather-header">
+          <h3>{{ weatherData()[selectedDetailIndex()].name }}</h3>
+          <img
+            [src]="getWeatherIcon(weatherData()[selectedDetailIndex()].weather[0].icon)"
+            [alt]="weatherData()[selectedDetailIndex()].weather[0].description"
+          />
+        </div> -->
+        <div class="weather-header">
+          <h3>{{ weatherWithTitles()[selectedDetailIndex()].title }}</h3> <!-- Usa el título del marcador -->
+          <img
+            [src]="getWeatherIcon(weatherWithTitles()[selectedDetailIndex()].weather.weather[0].icon)"
+            [alt]="weatherWithTitles()[selectedDetailIndex()].weather.weather[0].description"
+          />
+        </div>
+        <div class="weather-body">
+          <div class="temperature">
+            <span class="main-temp">
+              {{ formatTemperature(weatherData()[selectedDetailIndex()].main.temp) }}
+            </span>
+            <span class="feels-like">
+              Sensación térmica: {{
+                formatTemperature(weatherData()[selectedDetailIndex()].main.feels_like)
+              }}
+            </span>
+          </div>
+          <div class="details">
+            <div class="detail-item">
+              <i class="fas fa-tint"></i>
+              <span>{{ weatherData()[selectedDetailIndex()].main.humidity }}%</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-wind"></i>
+              <span>{{ weatherData()[selectedDetailIndex()].wind.speed }} m/s</span>
+              <span class="wind-direction">
+                {{ getWindDirection(weatherData()[selectedDetailIndex()].wind.deg) }}
+              </span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-compress-arrows-alt"></i>
+              <span>{{ weatherData()[selectedDetailIndex()].main.pressure }} hPa</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Tarjetas Resumidas del Clima -->
+      <!-- <div class="weather-summary-container">
+        <div
+          *ngFor="let weather of weatherData(); let i = index"
+          [class.active]="i === selectedDetailIndex()"
+          (click)="setDetailedView(i)"
+          class="weather-card summary"
+        >
+        <div class="summary-content">
+          <div class="place-weather-temp">
+            <h4>{{ weather.name }}</h4>
+            <span class="summary-temp">{{ formatTemperature(weather.main.temp) }}</span>
+          </div>
+          <div class="icon-weather">
+            <img
+              [src]="getWeatherIcon(weather.weather[0].icon)"
+              [alt]="weather.weather[0].description"
+            />
+          </div>
+        </div>
+        </div>
+      </div> -->
+      <!-- Tarjetas Resumidas del Clima -->
+<div class="weather-summary-container">
+  <div
+    *ngFor="let item of weatherWithTitles(); let i = index"
+    [class.active]="i === selectedDetailIndex()"
+    (click)="setDetailedView(i)"
+    class="weather-card summary"
+  >
+  <div class="summary-content">
+    <div class="place-weather-temp">
+      <span class="summary-temp">{{ formatTemperature(item.weather.main.temp) }}</span>
+      <img
+        [src]="getWeatherIcon(item.weather.weather[0].icon)"
+        [alt]="item.weather.weather[0].description"
+      />
+    </div>
+    <h4 class="title">{{ item.title }}</h4>
+  </div>
+  
+  
+  </div>
+</div>
+
+    </div>
+  </div>
+  

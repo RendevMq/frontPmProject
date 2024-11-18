@@ -1,61 +1,463 @@
-.demand-history-container {
-    padding: 2rem;
-  
+// Variables de color para el tema claro
+$color-light-container-bg: #f9fafb6b;
+$color-light-background: #ffffff;
+$color-light-text-primary: #1a1a1a;
+$color-light-text-secondary: #374151;
+$color-light-text-td: #1f2937;
+$color-light-border: #eaeaea;
+$color-light-th-background: #f9fafb;
+$color-light-row-group-a-bg: #ffffff;
+$color-light-row-group-b-bg: #f8fafc;
+$color-light-row-hover-bg: #f1f5f9;
+$color-light-route-regular-bg: #e0f2fe;
+$color-light-route-regular-text: #0369a1;
+$color-light-route-express-bg: #fef3c7;
+$color-light-route-express-text: #92400e;
+$color-light-passengers-low: #166534;
+$color-light-passengers-medium: #854d0e;
+$color-light-passengers-high: #991b1b;
+$color-light-pagination-border: #d1d5db;
+$color-light-pagination-bg: white;
+$color-light-pagination-text: #374151;
+$color-light-pagination-hover-bg: #f3f4f6;
+$color-light-pagination-active-bg: #3b82f6; /**/
+$color-light-pagination-active-text: white;
+$color-light-pagination-info-text: #6b7280;
+$color-light-select-background: white;
+$color-light-select-border: #d1d5db;
+$color-light-select-text: #374151;
+$color-light-select-focus-border: #3b82f6;
+$color-light-items-per-page-text: #6b7280;
+$table-border-color-light: #eaeaea;
+
+// Variables de color para el tema oscuro
+$color-dark-container-bg: #1a1a1a73;
+$color-dark-background: #1a1a1a;
+$color-dark-text-primary: #ffffff;
+$color-dark-text-secondary: #e5e7eb;
+$color-dark-text-td: #d1d5db;
+$color-dark-border: #374151;
+$color-dark-th-background: #2d2d2d;
+$color-dark-row-group-a-bg: #1f1f1f; /*AQUI*/
+$color-dark-row-group-b-bg: #2a2a2a;
+// $color-dark-row-group-a-bg: #1f1f1f; /*AQUI*/
+// $color-dark-row-group-b-bg: #2a2a2a;
+$color-dark-row-hover-bg: #333333;
+$color-dark-route-regular-bg: #0f172a;
+$color-dark-route-regular-text: #93c5fd;
+$color-dark-route-express-bg: #4b5563;
+$color-dark-route-express-text: #fef3c7;
+$color-dark-passengers-low: #34d399;
+$color-dark-passengers-medium: #fbbf24;
+$color-dark-passengers-high: #ef4444;
+$color-dark-pagination-border: #374151;
+$color-dark-pagination-bg: #1a1a1a;
+$color-dark-pagination-text: #d1d5db;
+$color-dark-pagination-hover-bg: #2a2a2a;
+$color-dark-pagination-active-bg: #2563eb;
+$color-dark-pagination-active-text: white;
+$color-dark-pagination-info-text: #9ca3af;
+$color-dark-select-background: #1a1a1a;
+$color-dark-select-border: #374151;
+$color-dark-select-text: #d1d5db;
+$color-dark-select-focus-border: #2563eb;
+$color-dark-items-per-page-text: #9ca3af;
+$table-border-color-dark: rgba(255, 255, 255, 0.367);
+
+// Mixin para aplicar los estilos de tema
+@mixin theme-styles(
+  $container-bg,
+  $background,
+  $text-primary,
+  $text-secondary,
+  $text-td,
+  $border,
+  $th-background,
+  $row-group-a-bg,
+  $row-group-b-bg,
+  $row-hover-bg,
+  $route-regular-bg,
+  $route-regular-text,
+  $route-express-bg,
+  $route-express-text,
+  $passengers-low,
+  $passengers-medium,
+  $passengers-high,
+  $pagination-border,
+  $pagination-bg,
+  $pagination-text,
+  $pagination-hover-bg,
+  $pagination-active-bg,
+  $pagination-active-text,
+  $pagination-info-text,
+  $select-background,
+  $select-border,
+  $select-text,
+  $select-focus-border,
+  $items-per-page-text,
+  $table-border-color
+) {
+  background-color: $container-bg;
+  color: $text-primary;
+
+
     h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 1.5rem;
+      color: $text-primary !important;
+    }
+
+    .generate-button {
+      background-color: $pagination-active-bg;
+      color: $pagination-active-text;
+
+      &:hover {
+        background-color: darken($pagination-active-bg, 10%);
+      }
+    }
+  
+
+  .mode-selector-container {
+    .mode-selector {
+      background: $background;
+      border: 1px solid $border;
+
+      .mode-button {
+        background: transparent;
+        color: $text-primary;
+
+        &.active {
+          background-color: $pagination-active-bg;
+          color: $pagination-active-text;
+        }
+
+        &:not(.active):hover {
+          background-color: $row-hover-bg;
+        }
+      }
+    }
+
+    .mode-instructions {
+      h3 {
+        color: $text-primary;
+      }
+
+      .auto-mode,
+      .manual-mode {
+        background-color: $background;
+        color: $text-primary;
+        border: 1px solid $border;
+        border-radius: 8px;
+        padding: 1rem;
+
+        &.active {
+          background-color: $container-bg;
+        }
+
+        ul,
+        ol {
+          li {
+            color: $text-primary;
+          }
+        }
+      }
     }
   }
-  
+
   .table-container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    overflow: auto;
+    background: $background;
+    border-top: 1px solid $border;
+    margin-bottom: 2rem;
   }
-  
+
+  .custom-table {
+    th,
+    td {
+      border-bottom: 1px solid $table-border-color;
+    }
+
+    th {
+      background-color: $th-background;
+      color: $text-secondary;
+    }
+
+    td {
+      color: $text-td;
+    }
+
+    tr.row-group-a {
+      background-color: $row-group-a-bg;
+    }
+
+    tr.row-group-b {
+      background-color: $row-group-b-bg;
+    }
+
+    tr:hover {
+      background-color: $row-hover-bg !important;
+    }
+  }
+
+  .route-badge {
+    &.route-regular {
+      background-color: $route-regular-bg;
+      color: $route-regular-text;
+    }
+
+    &.route-express,
+    &.route-expreso1 {
+      background-color: $route-express-bg;
+      color: $route-express-text;
+    }
+  }
+
+  .passenger-count {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+
+    i {
+      margin-right: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    &.passengers-low {
+      color: $passengers-low;
+    }
+
+    &.passengers-medium {
+      color: $passengers-medium;
+    }
+
+    &.passengers-high {
+      color: $passengers-high;
+    }
+  }
+
+  .pagination-container {
+    border-top: 1px solid $border;
+
+    .pagination-info {
+      color: $pagination-info-text;
+    }
+
+    .pagination-controls {
+      .pagination-button {
+        border: 1px solid $pagination-border;
+        background-color: $pagination-bg;
+        color: $pagination-text;
+
+        &:hover:not(:disabled) {
+          background-color: $pagination-hover-bg;
+        }
+
+        &.active {
+          background-color: $pagination-active-bg;
+          color: $pagination-active-text;
+          border-color: $pagination-active-bg;
+        }
+      }
+    }
+
+    .items-per-page {
+      select {
+        border: 1px solid $select-border;
+        background-color: $select-background;
+        color: $select-text;
+
+        &:focus {
+          border-color: $select-focus-border;
+        }
+      }
+
+      span {
+        color: $items-per-page-text;
+      }
+    }
+  }
+}
+
+// Aplicación de los estilos para el tema claro
+.demand-history-container.light {
+  @include theme-styles(
+    $color-light-container-bg,
+    $color-light-background,
+    $color-light-text-primary,
+    $color-light-text-secondary,
+    $color-light-text-td,
+    $color-light-border,
+    $color-light-th-background,
+    $color-light-row-group-a-bg,
+    $color-light-row-group-b-bg,
+    $color-light-row-hover-bg,
+    $color-light-route-regular-bg,
+    $color-light-route-regular-text,
+    $color-light-route-express-bg,
+    $color-light-route-express-text,
+    $color-light-passengers-low,
+    $color-light-passengers-medium,
+    $color-light-passengers-high,
+    $color-light-pagination-border,
+    $color-light-pagination-bg,
+    $color-light-pagination-text,
+    $color-light-pagination-hover-bg,
+    $color-light-pagination-active-bg,
+    $color-light-pagination-active-text,
+    $color-light-pagination-info-text,
+    $color-light-select-background,
+    $color-light-select-border,
+    $color-light-select-text,
+    $color-light-select-focus-border,
+    $color-light-items-per-page-text,
+    $table-border-color-light
+  );
+}
+
+// Aplicación de los estilos para el tema oscuro
+.demand-history-container.dark {
+  @include theme-styles(
+    $color-dark-container-bg,
+    $color-dark-background,
+    $color-dark-text-primary,
+    $color-dark-text-secondary,
+    $color-dark-text-td,
+    $color-dark-border,
+    $color-dark-th-background,
+    $color-dark-row-group-a-bg,
+    $color-dark-row-group-b-bg,
+    $color-dark-row-hover-bg,
+    $color-dark-route-regular-bg,
+    $color-dark-route-regular-text,
+    $color-dark-route-express-bg,
+    $color-dark-route-express-text,
+    $color-dark-passengers-low,
+    $color-dark-passengers-medium,
+    $color-dark-passengers-high,
+    $color-dark-pagination-border,
+    $color-dark-pagination-bg,
+    $color-dark-pagination-text,
+    $color-dark-pagination-hover-bg,
+    $color-dark-pagination-active-bg,
+    $color-dark-pagination-active-text,
+    $color-dark-pagination-info-text,
+    $color-dark-select-background,
+    $color-dark-select-border,
+    $color-dark-select-text,
+    $color-dark-select-focus-border,
+    $color-dark-items-per-page-text,
+    $table-border-color-dark
+  );
+}
+
+// Estilos base (no dependientes del tema)
+.demand-history-container {
+  padding: 2rem;
+  border-radius: 20px;
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600 ;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    .generate-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      .generate-icon {
+        font-size: 1rem;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    
+  }
+
+  .mode-selector-container {
+    margin-bottom: 2rem;
+
+    .mode-selector {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border-radius: 2rem;
+      overflow: hidden;
+
+      .mode-button {
+        flex: 1;
+        padding: 1rem 0;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+    }
+
+    .mode-instructions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .auto-mode,
+      .manual-mode {
+        padding: 1rem;
+        border-radius: 8px;
+
+        ul,
+        ol {
+          padding-left: 1.5rem;
+
+          li {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .table-container {
+    border-radius: 8px;
+    overflow: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
   .custom-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    
-    th, td {
+
+    th,
+    td {
       padding: 1rem;
       text-align: left;
-      border-bottom: 1px solid #eaeaea;
     }
-  
+
     th {
-      background-color: #f9fafb;
       font-weight: 600;
-      color: #374151;
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-  
+
     td {
-      color: #1f2937;
       font-size: 0.875rem;
     }
-  
-    // Alternating row groups
-    .row-group-1 {
-      background-color: #ffffff;
-    }
-  
-    .row-group-2 {
-      background-color: #f8fafc;
-    }
-  
-    tr:hover {
-      background-color: #f1f5f9 !important;
-    }
   }
-  
-  // Route badges
+
   .route-badge {
     display: inline-flex;
     align-items: center;
@@ -65,136 +467,98 @@
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-  
-    &.route-regular {
-      background-color: #e0f2fe;
-      color: #0369a1;
-    }
-  
-    &.route-express {
-      background-color: #fef3c7;
-      color: #92400e;
-    }
   }
-  
-  // Passenger count styling
+
   .passenger-count {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 500;
-  
-    &.passengers-low {
-      background-color: #dcfce7;
-      color: #166534;
-    }
-  
-    &.passengers-medium {
-      background-color: #fef9c3;
-      color: #854d0e;
-    }
-  
-    &.passengers-high {
-      background-color: #fee2e2;
-      color: #991b1b;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+
+    i {
+      margin-right: 0.5rem;
+      font-size: 1.25rem;
     }
   }
-  
-  // Pagination styles
+
   .pagination-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    border-top: 1px solid #eaeaea;
-    
-    .pagination-info {
-      color: #6b7280;
-      font-size: 0.875rem;
-    }
-  
+
     .pagination-controls {
       display: flex;
       gap: 0.25rem;
-      
+
       .pagination-button {
         padding: 0.5rem 0.75rem;
-        border: 1px solid #d1d5db;
-        background-color: white;
-        color: #374151;
-        font-size: 0.875rem;
         border-radius: 4px;
         cursor: pointer;
         transition: all 0.2s;
-  
-        &:hover:not(:disabled) {
-          background-color: #f3f4f6;
-        }
-  
+
         &:disabled {
           opacity: 0.5;
           cursor: not-allowed;
         }
-  
-        &.active {
-          background-color: #3b82f6;
-          color: white;
-          border-color: #3b82f6;
-        }
       }
     }
-  
+
     .items-per-page {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      
+
       select {
         padding: 0.375rem 2rem 0.375rem 0.75rem;
-        border: 1px solid #d1d5db;
         border-radius: 4px;
-        background-color: white;
-        color: #374151;
         font-size: 0.875rem;
         cursor: pointer;
-        
+
         &:focus {
           outline: none;
-          border-color: #3b82f6;
-          ring: 2px solid #bfdbfe;
         }
       }
-  
+
       span {
-        color: #6b7280;
         font-size: 0.875rem;
       }
     }
   }
-  
-  // Responsive styles
-  @media (max-width: 768px) {
-    .demand-history-container {
-      padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .demand-history-container {
+    padding: 1rem;
+
+
+      .generate-button {
+        align-self: flex-end;
+      }
+    
+
+    .mode-instructions {
+      flex-direction: column;
     }
-  
+
     .custom-table {
-      th, td {
+      th,
+      td {
         padding: 0.75rem;
       }
     }
-  
+
     .pagination-container {
       flex-direction: column;
       gap: 1rem;
       align-items: center;
-      
+
       .pagination-controls {
         order: 2;
       }
-      
+
       .items-per-page {
         order: 3;
       }
     }
   }
+}

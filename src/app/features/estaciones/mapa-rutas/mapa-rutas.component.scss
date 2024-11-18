@@ -1,40 +1,125 @@
+// Variables de color
+$color-light-bg: #ffffff;
+$color-light-panel-bg: #eaeaea;
+$color-light-text: #333;
+$color-light-button-bg: #d3d3d3;
+$color-light-button-hover: #c2c2c2;
+$color-light-button-active: #00b4d8;
+$color-light-info-title: #0077b6;
 
-.map-container {
-  // height: 100vh;
-  // width: 100%;
-  // background-color: #1a1a1a;
-  color: white;
-  // display: flex;
-  // flex-direction: column;
-  margin: 10px auto;
+$color-dark-bg: #1a1a1a;
+$color-dark-panel-bg: #333;
+$color-dark-text: #ffffff;
+$color-dark-button-bg: #444;
+$color-dark-button-hover: #555;
+$color-dark-button-active: #00b4d8;
+$color-dark-info-title: #00b4d8;
 
-  background-color: #676767;
-  padding: 20px;
-  gap: 20px;
-  max-width: 1200px;
-  grid-template: repeat(2, minmax(150px, 1fr)) / repeat(2, minmax(150px, 1fr));
-  // width: 800px;
-  border-radius: 8px;
+@mixin theme-colors(
+  $bg,
+  $panel-bg,
+  $text,
+  $button-bg,
+  $button-hover,
+  $button-active,
+  $info-title
+) {
+  background-color: $bg;
+  color: $text;
+
+  .map-wrapper {
+    background-color: $panel-bg;
+  }
+
+  .route-selector {
+    background-color: $panel-bg;
+
+    h2 {
+      color: $text;
+    }
+
+    .route-button {
+      background-color: $button-bg;
+      color: $text;
+
+      &:hover {
+        background-color: $button-hover;
+      }
+
+      &.active {
+        background-color: $button-active;
+        color: $bg;
+      }
+    }
+  }
+
+  .info-window-content {
+    color: $text;
+    border-radius: 10px;
+
+    h3 {
+      color: $info-title;
+    }
+
+    p {
+      color: $text;
+    }
+  }
 }
 
-.map-title {
-  text-align: center;
-  padding: 1rem;
-  margin: 0;
-  font-size: 1.5rem;
-  background-color: #2a2a2a;
+// Estilos para el tema claro
+.light {
+  @include theme-colors(
+    $color-light-bg,
+    $color-light-panel-bg,
+    $color-light-text,
+    $color-light-button-bg,
+    $color-light-button-hover,
+    $color-light-button-active,
+    $color-light-info-title
+  );
+}
+
+// Estilos para el tema oscuro
+.dark {
+  @include theme-colors(
+    $color-dark-bg,
+    $color-dark-panel-bg,
+    $color-dark-text,
+    $color-dark-button-bg,
+    $color-dark-button-hover,
+    $color-dark-button-active,
+    $color-dark-info-title
+  );
+}
+
+// Estilos base
+.map-container {
+  padding: 20px;
+  margin: 10px auto;
+  border-radius: 8px;
+  max-width: 1200px;
 }
 
 .content-wrapper {
-  // display: flex;
-  flex: 1;
-  gap: 1rem;
-  padding: 1rem;
   display: grid;
-  grid-template: repeat(5, minmax(150px, 1fr)) / repeat(7, minmax(150px, 1fr));
+  grid-template: repeat(9, minmax(10px, 1fr)) / repeat(5, minmax(50px, 1fr));
+  gap: 1rem;
+  grid-template-areas:
+  "primero primero primero primero primero  "
+  "primero primero primero primero primero  "
+  "primero primero primero primero primero  "
+  "primero primero primero primero primero  "
+  "primero primero primero primero primero  "
+  "segundo segundo segundo segundo segundo  "
+  "tercero tercero tercero tercero tercero  "
+  "tercero tercero tercero tercero tercero  "
+  "tercero tercero tercero tercero tercero  ";
+  
+  
+  @media (min-width: 950px) {
+   grid-template: repeat(5, minmax(50px, 1fr)) / repeat(7, minmax(50px, 1fr));
 
-  @media (min-width: 900px) {
-    grid-template: repeat(5, minmax(150px, 1fr)) / repeat(7, minmax(150px, 1fr));
     grid-template-areas:
       "primero primero primero primero primero segundo segundo"
       "primero primero primero primero primero tercero tercero"
@@ -45,91 +130,57 @@
 }
 
 .map-wrapper {
-  // flex: 1;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   grid-area: primero;
-//   height: 100%;
-//   width: 100%;
-
 }
 
-// .google-map {
-//   height: 100%;
-//   width: 100%;
-// }
-
 .route-selector {
-  // width: 300px;
-  background-color: #2a2a2a;
   border-radius: 12px;
   padding: 1.5rem;
   grid-area: segundo;
 
+  .route-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .route-button {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 }
 
-.weather-wraper{
+.weather-wrapper {
   grid-area: tercero;
-  background-color: #3a3a3a;
-  background-color: #2a2a2a;
   border-radius: 12px;
-  padding: 1.5rem;
+  // padding: 1.5rem;
 }
-
-
-.route-selector h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-}
-
-.route-buttons {
-  display: flex;
-  gap: 1rem;
-}
-
-.route-button {
-  flex: 1;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #3a3a3a;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.route-button:hover {
-  background-color: #4a4a4a;
-}
-
-.route-button.active {
-  background-color: #00b4d8;
-  color: #1a1a1a;
-}
-
 
 .info-window-content {
-color: #333;
-font-family: Arial, sans-serif;
-padding: 10px;
-text-align: center;
+  text-align: center;
+  padding: 10px;
+  font-family: Arial, sans-serif;
 
-h3 {
-font-size: 1.2rem;
-margin: 0;
-color: #00b4d8;
-}
+  h3 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
 
-p {
-margin: 5px 0;
-font-size: 0.9rem;
-}
+  p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
 
-img {
-margin-top: 8px;
-border-radius: 8px;
-max-width: 100%;
-max-height: 150px;
-}
+  img {
+    margin-top: 8px;
+    border-radius: 8px;
+    max-width: 100%;
+    max-height: 150px;
+  }
 }

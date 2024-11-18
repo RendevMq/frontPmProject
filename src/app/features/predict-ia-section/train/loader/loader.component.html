@@ -1,16 +1,195 @@
-<!-- loader.component.html -->
-<div class="loader-container">
-    <div class="loader" [class.completed]="isCompleted">
-      <div class="brain">
-        <div class="left-hemisphere"></div>
-        <div class="right-hemisphere"></div>
-        <div class="neurons"></div>
-      </div>
-      <div class="progress-bar">
-        <div class="progress" [style.width.%]="progress"></div>
-      </div>
-      <div class="status-text">
-        {{ isCompleted ? '¡Entrenamiento Completado! 🎉' : 'Entrenando IA...' }}
-      </div>
-    </div>
+<div
+  class="flex flex-col items-center w-full max-w-4xl mx-auto p-8 neural-network-container"
+  [class.training-complete]="progress >= 100"
+  [class.light]="theme === 'light'"
+  [class.dark]="theme === 'dark'"
+>
+  <!-- Controles -->
+  <div class="mb-8">
+    <ng-container *ngIf="!isTraining">
+      <button
+        (click)="startTraining()"
+        class="flex items-center gap-2 px-6 py-3 start-button transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+          />
+        </svg>
+        Iniciar Entrenamiento
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isTraining">
+      <button
+        (click)="stopTraining()"
+        class="flex items-center gap-2 px-6 py-3 stop-button transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+          />
+        </svg>
+        Detener Entrenamiento
+      </button>
+    </ng-container>
   </div>
+
+  <!-- Visualización de la Red Neuronal -->
+  <div class="visualization-container">
+    <svg
+      width="800"
+      height="400"
+      viewBox="0 0 800 400"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <defs>
+        <linearGradient id="neuronGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7C3AED" />
+          <stop offset="100%" stop-color="#6D28D9" />
+        </linearGradient>
+        <filter id="neuroPulse" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+          <feColorMatrix
+            in="blur"
+            mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+            result="glow"
+          />
+          <feBlend in="SourceGraphic" in2="glow" mode="normal" />
+        </filter>
+        <linearGradient id="connectionGradient">
+          <stop offset="0%" stop-color="rgba(139, 92, 246, 0.5)">
+            <animate
+              attributeName="offset"
+              values="0;1"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </stop>
+          <stop offset="100%" stop-color="rgba(139, 92, 246, 0)">
+            <animate
+              attributeName="offset"
+              values="0;1"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </stop>
+        </linearGradient>
+      </defs>
+
+      <g>
+        <ng-container *ngFor="let y1 of [50, 150, 250, 350]">
+          <ng-container *ngFor="let y2 of [100, 200, 300]">
+            <path
+              [attr.d]="'M 150 ' + y1 + ' Q 300 ' + (y1 + (y2 - y1) / 2) + ' 450 ' + y2"
+              stroke="#4B5563"
+              stroke-width="2"
+              fill="none"
+            />
+          </ng-container>
+        </ng-container>
+        <ng-container *ngFor="let y1 of [100, 200, 300]">
+          <ng-container *ngFor="let y2 of [150, 250]">
+            <path
+              [attr.d]="'M 450 ' + y1 + ' Q 600 ' + (y1 + (y2 - y1) / 2) + ' 750 ' + y2"
+              stroke="#4B5563"
+              stroke-width="2"
+              fill="none"
+            />
+          </ng-container>
+        </ng-container>
+      </g>
+
+      <ng-container *ngIf="isTraining">
+        <g>
+          <ng-container *ngFor="let y1 of [50, 150, 250, 350]">
+            <ng-container *ngFor="let y2 of [100, 200, 300]">
+              <path
+                [attr.d]="'M 150 ' + y1 + ' Q 300 ' + (y1 + (y2 - y1) / 2) + ' 450 ' + y2"
+                stroke="url(#connectionGradient)"
+                stroke-width="4"
+                fill="none"
+                class="connection-path"
+              ></path>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngFor="let y1 of [100, 200, 300]">
+            <ng-container *ngFor="let y2 of [150, 250]">
+              <path
+                [attr.d]="'M 450 ' + y1 + ' Q 600 ' + (y1 + (y2 - y1) / 2) + ' 750 ' + y2"
+                stroke="url(#connectionGradient)"
+                stroke-width="4"
+                fill="none"
+                class="connection-path"
+              ></path>
+            </ng-container>
+          </ng-container>
+        </g>
+      </ng-container>
+
+      <g filter="url(#neuroPulse)">
+        <ng-container *ngFor="let y of [50, 150, 250, 350]">
+          <circle
+            cx="150"
+            [attr.cy]="y"
+            r="20"
+            fill="url(#neuronGradient)"
+            [class.animate-pulse]="isTraining"
+          />
+        </ng-container>
+        <ng-container *ngFor="let y of [100, 200, 300]">
+          <circle
+            cx="450"
+            [attr.cy]="y"
+            r="20"
+            fill="url(#neuronGradient)"
+            [class.animate-pulse]="isTraining"
+          />
+        </ng-container>
+        <ng-container *ngFor="let y of [150, 250]">
+          <circle
+            cx="750"
+            [attr.cy]="y"
+            r="20"
+            fill="url(#neuronGradient)"
+            [class.animate-pulse]="isTraining"
+          />
+        </ng-container>
+      </g>
+    </svg>
+  </div>
+
+  <div class="w-full mt-8">
+    <div class="progress-bar-container">
+      <div
+      class="progress-bar"
+      [ngStyle]="{
+        width: progress + '%',
+        backgroundColor: getProgressBarColor()
+      }"
+    ></div>
+    
+    </div>
+    <div class="mt-2 text-center status-text">{{ statusText }}</div>
+  </div>
+
+  <canvas #confettiCanvas class="canvas"></canvas>
+</div>
