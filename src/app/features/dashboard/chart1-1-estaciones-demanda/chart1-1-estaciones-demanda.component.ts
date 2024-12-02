@@ -202,7 +202,6 @@ export class Chart11EstacionesDemandaComponent implements OnInit, OnDestroy {
     }
   }
 }*/
-
 import { Component, effect, ElementRef, inject, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../../../core/services/api.service';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -362,7 +361,6 @@ export class Chart11EstacionesDemandaComponent implements OnInit, OnDestroy {
       series: this.estaciones.map(estacion => ({
         name: estacion,
         type: 'line',
-        // smooth: true,
         lineStyle: { width: 2, color: this.themeConfig[this.theme].seriesLineColor(estacion) },
         data: [],
         animationDuration: 1000,
@@ -414,12 +412,22 @@ export class Chart11EstacionesDemandaComponent implements OnInit, OnDestroy {
     if (!this.chartInstance) return;
 
     const labels = Array.from(new Set(estacionesRutaDemanda.map(d => new Date(d.hora).toLocaleTimeString())));
+    
+    const aggregatedData = estacionesRutaDemanda.reduce((acc, curr) => {
+      const timeKey = new Date(curr.hora).toLocaleTimeString();
+      if (!acc[curr.estacion]) {
+        acc[curr.estacion] = {};
+      }
+      if (!acc[curr.estacion][timeKey]) {
+        acc[curr.estacion][timeKey] = 0;
+      }
+      acc[curr.estacion][timeKey] += curr.pasajerosEsperando;
+      return acc;
+    }, {} as Record<Estacion, Record<string, number>>);
+
     const seriesData = this.estaciones.map(estacion => ({
       name: estacion,
-      data: labels.map(label => {
-        const entry = estacionesRutaDemanda.find(d => d.estacion === estacion && new Date(d.hora).toLocaleTimeString() === label);
-        return entry ? entry.pasajerosEsperando : 0;
-      }),
+      data: labels.map(label => aggregatedData[estacion]?.[label] || 0),
     }));
 
     this.chartInstance.setOption({
@@ -427,7 +435,6 @@ export class Chart11EstacionesDemandaComponent implements OnInit, OnDestroy {
       series: seriesData.map(data => ({
         ...data,
         type: 'line',
-        // smooth: true,
         animationDurationUpdate: 800,
         animationEasingUpdate: 'cubicInOut',
       })),
@@ -440,3 +447,4 @@ export class Chart11EstacionesDemandaComponent implements OnInit, OnDestroy {
     }
   }
 }
+

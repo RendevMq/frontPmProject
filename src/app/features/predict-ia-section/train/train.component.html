@@ -8,6 +8,9 @@
           <th>Estación</th>
           <th>Ruta</th>
           <th>Pasajeros Esperando</th>
+          <th>Clima</th>
+          <th>Evento Especial</th>
+          <th>Día</th>
           <th>Hora</th>
           <th>Buses por Salir</th>
         </tr>
@@ -26,8 +29,23 @@
               {{ item.pasajerosEsperando }}
             </span>
           </td>
-          <td>{{ formatTime(item.hora) }}</td>
-          <td>{{ item.buses }}</td>
+          <td>
+            <span class="clima-info">
+              <i [class]="getClimaIcon(item.clima)" aria-hidden="true"></i>
+              {{ item.clima }}
+            </span>
+          </td>
+          <td>
+            <span class="evento-especial-info">
+              <i [class]="getEventoEspecialIcon(item.eventoEspecial)" aria-hidden="true"></i>
+              {{ item.eventoEspecial }}
+            </span>
+          </td>
+          <td class="font-diaHoraBuses">{{ item.dia }}</td>
+          <td class="font-diaHoraBuses">{{ formatTime(item.hora) }}</td>
+          <td class="font-diaHoraBuses">{{ item.buses }}</td>
+
+
         </tr>
       </tbody>
     </table>
@@ -90,3 +108,4 @@
 
   <app-neural-network></app-neural-network>
 </div>
+

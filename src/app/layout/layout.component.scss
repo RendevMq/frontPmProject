@@ -1,5 +1,11 @@
 @import '../../styles.scss'; // Importa las variables y mixins globales
 
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .content {
   margin-top: $navbar-height;
   margin-left: $sidenav-width;
@@ -29,6 +35,10 @@
   &.expanded {
     margin-left: $sidenav-collapsed-width;
     // width: calc(100% - $sidenav-collapsed-width) ;
+  }
+
+  .main-content{
+    min-height: calc(100vh - 4rem);
   }
 
   @media (max-width: 1000px) {

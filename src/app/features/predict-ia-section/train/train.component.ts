@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { ApiService } from '../../../core/services/api.service';
-import { IEstacionesRutaDemanda, Ruta } from '../../../core/models/historico.model';
+import { IEstacionesRutaDemanda, Ruta, Clima, Dia, EventoEspecial } from '../../../core/models/historico.model';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './loader/loader.component';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -28,7 +28,6 @@ export class TrainComponent {
   pageSizeOptions = [6, 12, 18, 24];
 
   constructor() {
-    // Efecto para actualizar los datos
     effect(() => {
       const data = this.apiService.estacionesRutaDemandaSignal();
       this.allData.set(data);
@@ -36,7 +35,6 @@ export class TrainComponent {
       this.updateDisplayData();
     }, { allowSignalWrites: true });
 
-    // Efecto para detectar cambios en el tema
     effect(() => {
       this.theme = this.themeService.isDark() ? 'dark' : 'light';
     });
@@ -110,10 +108,43 @@ export class TrainComponent {
     const groupIndex = Math.floor(index / 6) % 2;
     return groupIndex === 0 ? 'row-group-a' : 'row-group-b';
   }
-  
 
   getDisplayRangeEnd(): number {
     return Math.min(this.currentPage() * this.itemsPerPage(), this.totalItems());
+  }
+
+  getClimaIcon(clima: Clima): string {
+    switch (clima) {
+      case Clima.Soleado:
+        return 'fas fa-sun';
+      case Clima.Templado:
+        return 'fas fa-cloud-sun';
+      case Clima.Lluvia:
+        return 'fas fa-cloud-rain';
+      case Clima.Niebla:
+        return 'fas fa-smog';
+      case Clima.Tormenta:
+        return 'fas fa-bolt';
+      default:
+        return 'fas fa-question';
+    }
+  }
+
+  getEventoEspecialIcon(evento: EventoEspecial): string {
+    switch (evento) {
+      case EventoEspecial.Ninguno:
+        return 'fas fa-minus';
+      case EventoEspecial.Partido:
+        return 'fas fa-futbol';
+      case EventoEspecial.Concierto:
+        return 'fas fa-music';
+      case EventoEspecial.Feria:
+        return 'fas fa-tent';
+      case EventoEspecial.Manifestacion:
+        return 'fas fa-bullhorn';
+      default:
+        return 'fas fa-question';
+    }
   }
 }
 

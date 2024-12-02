@@ -19,7 +19,7 @@ export const appRoutes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canMatch: [authGuard], // Aplica el guard de autenticación
+    canMatch: [authGuard], // Guard de autenticación
     children: [
       {
         path: 'dashboard',

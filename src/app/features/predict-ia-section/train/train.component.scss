@@ -20,7 +20,7 @@ $color-light-pagination-border: #d1d5db;
 $color-light-pagination-bg: white;
 $color-light-pagination-text: #374151;
 $color-light-pagination-hover-bg: #f3f4f6;
-$color-light-pagination-active-bg: #3b82f6; /**/
+$color-light-pagination-active-bg: #3b82f6;
 $color-light-pagination-active-text: white;
 $color-light-pagination-info-text: #6b7280;
 $color-light-select-background: white;
@@ -38,10 +38,8 @@ $color-dark-text-secondary: #e5e7eb;
 $color-dark-text-td: #d1d5db;
 $color-dark-border: #374151;
 $color-dark-th-background: #2d2d2d;
-$color-dark-row-group-a-bg: #1f1f1f; /*AQUI*/
+$color-dark-row-group-a-bg: #1f1f1f;
 $color-dark-row-group-b-bg: #2a2a2a;
-// $color-dark-row-group-a-bg: #1f1f1f; /*AQUI*/
-// $color-dark-row-group-b-bg: #2a2a2a;
 $color-dark-row-hover-bg: #333333;
 $color-dark-route-regular-bg: #0f172a;
 $color-dark-route-regular-text: #93c5fd;
@@ -100,20 +98,18 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
   background-color: $container-bg;
   color: $text-primary;
 
+  h1 {
+    color: $text-primary !important;
+  }
 
-    h1 {
-      color: $text-primary !important;
+  .generate-button {
+    background-color: $pagination-active-bg;
+    color: $pagination-active-text;
+
+    &:hover {
+      background-color: darken($pagination-active-bg, 10%);
     }
-
-    .generate-button {
-      background-color: $pagination-active-bg;
-      color: $pagination-active-text;
-
-      &:hover {
-        background-color: darken($pagination-active-bg, 10%);
-      }
-    }
-  
+  }
 
   .mode-selector-container {
     .mode-selector {
@@ -172,11 +168,26 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
     th,
     td {
       border-bottom: 1px solid $table-border-color;
+      padding: 1rem;
+      text-align: center; // Center align all cells by default
+
+      &:first-child {
+        text-align: left; // Left align the first column (Estación)
+      }
     }
 
     th {
       background-color: $th-background;
       color: $text-secondary;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center; // Center align all header cells
+
+      &:first-child {
+        text-align: left; // Left align the first header (Estación)
+      }
     }
 
     td {
@@ -229,6 +240,22 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
 
     &.passengers-high {
       color: $passengers-high;
+    }
+  }
+
+  .font-diaHoraBuses{
+    font-weight: 600;
+  }
+
+  .clima-info,
+  .evento-especial-info {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 200;
+
+    i {
+      margin-right: 0.5rem;
+      font-size: 1.25rem;
     }
   }
 
@@ -352,33 +379,32 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
   padding: 2rem;
   border-radius: 20px;
 
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 600 ;
-      margin: 0;
-      margin-bottom: 20px;
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  .generate-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    .generate-icon {
+      font-size: 1rem;
     }
 
-    .generate-button {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
-
-      .generate-icon {
-        font-size: 1rem;
-      }
-
-      &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   }
 
   .mode-selector-container {
@@ -469,10 +495,12 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
     letter-spacing: 0.05em;
   }
 
-  .passenger-count {
+  .passenger-count,
+  .clima-info,
+  .evento-especial-info {
     display: inline-flex;
     align-items: center;
-    font-weight: 700;
+    // font-weight: 400;
 
     i {
       margin-right: 0.5rem;
@@ -530,11 +558,9 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
   .demand-history-container {
     padding: 1rem;
 
-
-      .generate-button {
-        align-self: flex-end;
-      }
-    
+    .generate-button {
+      align-self: flex-end;
+    }
 
     .mode-instructions {
       flex-direction: column;
@@ -562,3 +588,4 @@ $table-border-color-dark: rgba(255, 255, 255, 0.367);
     }
   }
 }
+
